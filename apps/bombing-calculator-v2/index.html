@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bombing Calculator V2 — Work</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Flight Sim Tools · Architecture V2</p>
+        <h1>Bombing Calculator V2</h1>
+        <p class="subhead">Work / Prototype / Not Official · Bomb Delivery Planner + BOX composition</p>
+      </div>
+      <div id="modelBadge" class="badge">Loading model…</div>
+    </header>
+
+    <section class="panel">
+      <div class="section-heading">
+        <h2>Bomb Delivery Planner</h2>
+        <p>HTML은 입력·표시만 담당하고 계산은 V2 JavaScript BE가 수행합니다.</p>
+      </div>
+
+      <form id="plannerForm" class="form-grid" novalidate>
+        <label>Weapon
+          <select name="weaponId">
+            <option value="M82" selected>Mk-82</option>
+            <option value="M83">Mk-83</option>
+            <option value="M84">Mk-84</option>
+          </select>
+        </label>
+
+        <label>Target Elevation (ft MSL)
+          <input name="targetElevationMslFt" type="number" value="31" step="1">
+        </label>
+
+        <label>Initial Speed
+          <input name="initialSpeedValue" type="number" value="350" step="1">
+        </label>
+
+        <label>Initial Speed Mode
+          <select name="initialSpeedMode">
+            <option value="CAS" selected>KCAS</option>
+            <option value="MACH">Mach</option>
+          </select>
+        </label>
+
+        <label>Initial Altitude (ft MSL)
+          <input name="initialAltitudeMslFt" type="number" value="16000" step="10">
+        </label>
+
+        <label>Dive Angle (deg)
+          <input name="diveAngleDeg" type="number" value="45" min="0" max="89.9" step="0.1">
+        </label>
+
+        <label>Release FPA (deg)
+          <input name="releaseFpaDeg" type="number" value="-45" max="0" step="0.1">
+        </label>
+
+        <label>Release Altitude (ft MSL)
+          <input name="releaseAltitudeMslFt" type="number" value="6800" step="10">
+        </label>
+
+        <label>Release Speed (KCAS)
+          <input name="releaseSpeedKcas" type="number" value="450" step="1">
+        </label>
+
+        <label>Speed Overshoot (KCAS)
+          <input name="speedOvershootKcas" type="number" value="50" step="1">
+        </label>
+
+        <label>Fragment Height Margin (%)<input name="fragmentHeightMarginPercent" type="number" value="20" min="0" step="1"></label>
+        <label>Recovery G
+          <input name="recoveryG" type="number" value="5" min="1.01" max="9" step="0.1">
+        </label>
+
+        <label>G Onset Time (sec)
+          <input name="gOnsetTimeSec" type="number" value="2" min="0.1" step="0.1">
+        </label>
+
+        <label>Maneuver Initiation Delay (sec)
+          <input name="maneuverInitiationDelaySec" type="number" value="2" min="0" step="0.1">
+        </label>
+
+        <label>Angle-Off (Heading) (deg)
+          <input name="angleOffDeg" type="number" value="90" min="0.1" max="179.9" step="0.1">
+        </label>
+
+        <label>Roll-in Bank Angle (deg)
+          <input name="rollInBankAngleDeg" type="number" value="113" min="0.1" max="179.9" step="0.1">
+        </label>
+
+        <label>Roll-in G
+          <input name="rollInG" type="number" value="4" min="1.01" max="9" step="0.1">
+        </label>
+
+        <label>Wind Direction FROM (deg)
+          <input name="windDirectionDeg" type="number" value="0" step="1">
+        </label>
+
+        <label>Wind Speed (kt)
+          <input name="windSpeedKt" type="number" value="0" min="0" step="1">
+        </label>
+
+        <label>Solve Mode
+          <select name="solveMode">
+            <option value="height" selected>Initial Altitude</option>
+            <option value="time">Tracking Time</option>
+          </select>
+        </label>
+
+        <label>Tracking Time (sec)
+          <input name="trackingTimeSec" type="number" value="18" min="0" step="1">
+        </label>
+
+        <div class="form-actions">
+          <button type="submit">Calculate</button>
+          <button type="button" id="resetButton" class="secondary">Reset baseline</button>
+        </div>
+      </form>
+
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+    </section>
+
+    <section class="workspace-grid">
+      <article class="panel">
+        <div class="section-heading">
+          <h2>Public Result</h2>
+          <p>BE public contract를 그대로 표시합니다.</p>
+        </div>
+        <table class="result-table">
+          <tbody id="resultBody"></tbody>
+        </table>
+      </article>
+
+      <article class="panel">
+        <div class="section-heading">
+          <h2>Semantic Top View</h2>
+          <p>BE semantic state → SVG projection. 화면 좌표는 계산에 재사용하지 않습니다.</p>
+        </div>
+        <svg id="topView" viewBox="0 0 720 520" aria-label="Bomb delivery semantic top view"></svg>
+      </article>
+    </section>
+
+    <section class="panel box-panel">
+      <div class="section-heading">
+        <div>
+          <h2>BOX Pattern</h2>
+          <p>BDP v0.3 결과를 BOX BE v0.2가 직접 소비합니다. BOX의 Angle Off는 90° 고정입니다.</p>
+        </div>
+        <div id="boxModelBadge" class="badge">Loading BOX…</div>
+      </div>
+
+      <form id="boxForm" class="form-grid" novalidate>
+        <label>Base Turn G
+          <input name="baseTurnG" type="number" value="2" min="1.01" max="9" step="0.1">
+        </label>
+
+        <label>Crosswind Turn G
+          <input name="crossTurnG" type="number" value="2" min="1.01" max="9" step="0.1">
+        </label>
+
+        <label>Crosswind Leg Extension (NM)
+          <input name="crossLegExtensionNm" type="number" value="2" min="0" step="0.1">
+        </label>
+
+        <label>BOX Angle Off
+          <input value="90" type="number" disabled aria-label="BOX fixed Angle Off 90 degrees">
+        </label>
+
+        <div class="form-actions">
+          <button type="submit">Calculate BOX</button>
+        </div>
+      </form>
+
+      <div id="boxStatus" class="status" role="status" aria-live="polite"></div>
+
+      <div class="workspace-grid box-results-grid">
+        <article>
+          <div class="section-heading">
+            <h2>BOX Source</h2>
+            <p>BDP → BOX v0.2 전송 경계 · Base Distance는 계산 정밀도 그대로 전달</p>
+          </div>
+          <table class="result-table">
+            <tbody id="boxSourceBody"></tbody>
+          </table>
+        </article>
+
+        <article>
+          <div class="section-heading">
+            <h2>BOX Geometry</h2>
+            <p>Abeam Extension Distance = Base Distance − Base Turn Radius</p>
+          </div>
+          <table class="result-table">
+            <tbody id="boxResultBody"></tbody>
+          </table>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="./app.mjs"></script>
+</body>
+</html>

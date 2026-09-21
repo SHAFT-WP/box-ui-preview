@@ -1,0 +1,242 @@
+:root {
+  color-scheme: light;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #f3f5f7;
+  color: #17202a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #f3f5f7;
+}
+
+button,
+input,
+select { font: inherit; }
+
+.app-shell {
+  width: min(1500px, calc(100% - 32px));
+  margin: 24px auto 48px;
+}
+
+.hero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #5b6673;
+}
+
+h1,
+h2,
+p { margin-top: 0; }
+
+h1 {
+  margin-bottom: 4px;
+  font-size: clamp(28px, 4vw, 44px);
+  line-height: 1;
+}
+
+h2 {
+  margin-bottom: 4px;
+  font-size: 20px;
+}
+
+.subhead,
+.section-heading p {
+  margin-bottom: 0;
+  color: #677381;
+}
+
+.badge {
+  padding: 9px 12px;
+  border: 1px solid #cfd6dd;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.panel {
+  border: 1px solid #d9dee4;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 8px 24px rgba(22, 32, 42, .05);
+  padding: 20px;
+}
+
+.section-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  color: #34404c;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+input,
+select {
+  width: 100%;
+  min-height: 40px;
+  border: 1px solid #cbd3db;
+  border-radius: 9px;
+  background: #fff;
+  color: #101820;
+  padding: 8px 10px;
+}
+
+input:focus,
+select:focus,
+button:focus-visible {
+  outline: 3px solid rgba(46, 111, 196, .18);
+  outline-offset: 1px;
+  border-color: #2e6fc4;
+}
+
+.form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 10px;
+  padding-top: 6px;
+}
+
+button {
+  min-height: 42px;
+  border: 0;
+  border-radius: 9px;
+  background: #17202a;
+  color: #fff;
+  padding: 0 18px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+button.secondary {
+  border: 1px solid #cbd3db;
+  background: #fff;
+  color: #17202a;
+}
+
+.status {
+  min-height: 20px;
+  margin-top: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #28643a;
+}
+
+.status[data-kind="error"] { color: #a32a2a; }
+
+.workspace-grid {
+  display: grid;
+  grid-template-columns: minmax(420px, .85fr) minmax(0, 1.15fr);
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.result-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.result-table th,
+.result-table td {
+  border-bottom: 1px solid #edf0f2;
+  padding: 8px 6px;
+}
+
+.result-table th {
+  text-align: left;
+  font-weight: 650;
+  color: #53606c;
+}
+
+.result-table td {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+}
+
+#topView {
+  width: 100%;
+  min-height: 480px;
+  border: 1px solid #edf0f2;
+  border-radius: 12px;
+  background: #fbfcfd;
+}
+
+.plot-frame {
+  fill: transparent;
+  stroke: #dfe4e9;
+  stroke-width: 1;
+}
+
+.path-rollin,
+.path-tracking,
+.path-bomb {
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.path-rollin { stroke: #1e5a91; }
+.path-tracking { stroke: #2a7d4f; stroke-dasharray: 8 6; }
+.path-bomb { stroke: #aa5229; stroke-dasharray: 4 5; }
+
+.station circle {
+  fill: #fff;
+  stroke: #17202a;
+  stroke-width: 2;
+}
+
+.station text {
+  fill: #17202a;
+  font-size: 12px;
+  font-weight: 800;
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+@media (max-width: 1100px) {
+  .form-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .workspace-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .app-shell { width: min(100% - 18px, 1500px); margin-top: 12px; }
+  .hero,
+  .section-heading { display: block; }
+  .badge { display: inline-block; margin-top: 12px; white-space: normal; }
+  .form-grid { grid-template-columns: 1fr; }
+  .form-actions { flex-direction: column; }
+  .panel { padding: 14px; border-radius: 12px; }
+  #topView { min-height: 360px; }
+}
