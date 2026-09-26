@@ -1,6 +1,7 @@
 import { casToTas } from "../../../common/airspeed/airspeed-v0.1.mjs";
 import { bankAngleDegFromLoadFactor } from "../../../common/maneuvers/turn-performance/turn-performance-v0.1.mjs";
 import { calculateBombDeliveryLegacyEquivalent } from "../bomb-delivery-planner/bomb-delivery-planner-v0.1.mjs";
+import { truncateBeOutput } from "../../../common/ui/display-precision-v0.1.mjs";
 
 const LEGACY_G_MPS2 = 9.80665;
 const LEGACY_NM_M = 1852;
@@ -77,8 +78,15 @@ export function adaptBombDeliveryToBoxFieldsV0_2(profileInput) {
  *
  * In this migration core Abeam Extension Speed remains the inherited Initial
  * TAS boundary, matching the surrounding V0.1 BOX turn calculation model.
+ *
+ * Public entrypoint: result truncated to 5 decimals (docs/FE-BE-RULES.md). BOX composition calls
+ * calculateBoxGeometryV0_2Full, which keeps full precision.
  */
-export function calculateBoxGeometryV0_2({
+export function calculateBoxGeometryV0_2(input) {
+  return truncateBeOutput(calculateBoxGeometryV0_2Full(input));
+}
+
+export function calculateBoxGeometryV0_2Full({
   profileSource,
   baseTurnG,
   crossTurnG,

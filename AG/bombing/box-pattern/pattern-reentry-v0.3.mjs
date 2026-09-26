@@ -1,5 +1,6 @@
 import { casToTas } from "../../../common/airspeed/airspeed-v0.1.mjs";
 import { coordinatedConstantFpaTurn } from "../../../common/maneuvers/turn-performance/turn-performance-v0.2.mjs";
+import { truncateBeOutput } from "../../../common/ui/display-precision-v0.1.mjs";
 
 const FT_PER_NM = 6076.11549;
 const KT_TO_FPS = 1.687809857;
@@ -237,7 +238,13 @@ function selectBank(input, tasKt) {
   throw new RangeError("NO_FEASIBLE_PATTERN_ENTRY_BANK_5_DEG_INCREMENT");
 }
 
+// Public entrypoint: result truncated to 5 decimals (docs/FE-BE-RULES.md). BOX CLIMB SEM
+// composition calls calculateBoxPatternReentryV0_3Full, which keeps full precision.
 export function calculateBoxPatternReentryV0_3(rawInput) {
+  return truncateBeOutput(calculateBoxPatternReentryV0_3Full(rawInput));
+}
+
+export function calculateBoxPatternReentryV0_3Full(rawInput) {
   const input = normalizeInput(rawInput);
   validate(input);
   const tasAtHandoffKt = casToTas(input.patternClimbSpeedKcas, input.semTerminationAltitudeMslFt);

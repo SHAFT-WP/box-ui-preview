@@ -1,5 +1,6 @@
 import { calculateBombDeliveryV0_3Full as calculateBombDelivery } from "../bomb-delivery-planner/bomb-delivery-planner-v0.3.mjs";
-import { calculateBoxGeometryV0_2 } from "./box-adapter-v0.2.mjs";
+import { calculateBoxGeometryV0_2Full } from "./box-adapter-v0.2.mjs";
+import { truncateBeOutput } from "../../../common/ui/display-precision-v0.1.mjs";
 
 export const BOX_V2_COMPOSITION_MODEL_V0_2 = Object.freeze({
   id: "box-v2-composition-v0.2",
@@ -55,7 +56,13 @@ export function adaptBombDeliveryResultToBoxFieldsV0_2(result) {
   };
 }
 
-export function calculateBoxPatternV0_2({
+// Public entrypoint: result truncated to 5 decimals (docs/FE-BE-RULES.md). BE-to-BE composition
+// and relation checks use calculateBoxPatternV0_2Full, which keeps full precision.
+export function calculateBoxPatternV0_2(input) {
+  return truncateBeOutput(calculateBoxPatternV0_2Full(input));
+}
+
+export function calculateBoxPatternV0_2Full({
   bombDeliveryInput,
   baseTurnG,
   crossTurnG,
@@ -73,7 +80,7 @@ export function calculateBoxPatternV0_2({
     angleOffDeg: BOX_V2_COMPOSITION_MODEL_V0_2.fixedAngleOffDeg,
   });
   const profileSource = adaptBombDeliveryResultToBoxFieldsV0_2(bombDelivery);
-  const pattern = calculateBoxGeometryV0_2({
+  const pattern = calculateBoxGeometryV0_2Full({
     profileSource,
     baseTurnG,
     crossTurnG,

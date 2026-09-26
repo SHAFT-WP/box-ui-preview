@@ -1,8 +1,15 @@
 import { calculateBombDeliveryV0_2 } from "../bomb-delivery-planner/bomb-delivery-planner-v0.2.mjs";
 import { calculateClimbSemV0_2 } from "../../../flight/maneuvers/safe-escape/work/v0.2/climb-sem-core-v0.2.mjs";
-import { calculateBoxPatternReentryV0_3 } from "./pattern-reentry-v0.3.mjs";
+import { calculateBoxPatternReentryV0_3Full } from "./pattern-reentry-v0.3.mjs";
+import { truncateBeOutput } from "../../../common/ui/display-precision-v0.1.mjs";
 
+// Public entrypoint: result truncated to 5 decimals (docs/FE-BE-RULES.md); the Full variant keeps
+// full precision for composition and relation checks.
 export function calculateBoxClimbSemCompositionV0_3(rawInput) {
+  return truncateBeOutput(calculateBoxClimbSemCompositionV0_3Full(rawInput));
+}
+
+export function calculateBoxClimbSemCompositionV0_3Full(rawInput) {
   const delivery = calculateBombDeliveryV0_2({
     ...rawInput,
     angleOffDeg: 90,
@@ -43,7 +50,7 @@ export function calculateBoxClimbSemCompositionV0_3(rawInput) {
     throw new TypeError("patternEntryMaxLoadFactorG is required for BOX Pattern Entry");
   }
 
-  const patternReentry = calculateBoxPatternReentryV0_3({
+  const patternReentry = calculateBoxPatternReentryV0_3Full({
     semTerminationAltitudeMslFt: sem.terminationAltitudeFtMsl,
     semTerminationFpaDeg: sem.terminalFpaDeg,
     patternAltitudeMslFt,

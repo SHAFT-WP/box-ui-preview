@@ -42,29 +42,29 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}input[type=num
 </head>
 <body>
 <div class="wrap">
-<header><div><h1>BE: <span>BOX Pattern · UI Work</span></h1><div class="sub">R_20260831 · BE Common Rev0.8 Work · Dive Bomb Profile REV.1.7 contract · Direct numeric entry · Angle-Off (Heading) = 90 deg fixed · Right default · OUT Maneuver</div></div><div id="status" class="status">UI WORK · Rev1.5 calculation baseline</div></header>
+<header><div><h1>BE: <span>BOX Pattern · UI Work</span></h1><div class="sub">R_20260831 · BE Common Rev0.8 Work · Dive Bomb Profile REV.1.7 contract · Direct numeric entry · Angle-Off (Heading) = 90° fixed · Right default · OUT Maneuver</div></div><div id="status" class="status">UI WORK · Rev1.5 calculation baseline</div></header>
 <section class="card tempEmbed"><h2><span>TEMP · Bombing Profile Calculator REV. 1.7 · WORK CONTRACT</span><span class="tempBadge">FINAL FE에서 삭제</span></h2><div class="content">
 <details class="tempProfilePanel">
 <summary>Dive Bomb Profile REV.1.7 · Shared Parameter Source <span class="tempCoreTag">No external file</span></summary>
 <div class="tempProfileBody">
 <div class="tempGrid">
 <label class="tempField"><span>Bomb</span><select id="tpWeapon"></select></label>
-<label class="tempField"><span>Target Altitude (ft msl)</span><input id="tpTargetElevation" type="number" value="31" step="1"></label>
-<label class="tempField"><span>Release Speed (kcas)</span><input id="tpReleaseSpeed" type="number" value="450" step="1"></label>
+<label class="tempField"><span>Target Altitude (ft MSL)</span><input id="tpTargetElevation" type="number" value="31" step="1"></label>
+<label class="tempField"><span>Release Speed (KCAS)</span><input id="tpReleaseSpeed" type="number" value="450" step="1"></label>
 <label class="tempField"><span>Escape G (G)</span><input id="tpEscapeG" type="number" value="4" step="0.1"></label>
-<label class="tempField"><span>RNLT Speed Margin (kcas)</span><input id="tpNltMargin" type="number" value="50" step="1"></label>
-<label class="tempField"><span>Recovery Maneuver Delay (sec)</span><input id="tpManeuverTime" type="number" value="2" step="1"></label>
-<label class="tempField"><span>Dive Angle (deg)</span><input id="tpDiveAngle" type="number" value="45" step="1"></label>
-<label class="tempField"><span>Wind Direction (deg from)</span><input id="tpWindDirection" type="number" value="0" step="1"></label>
+<label class="tempField"><span>RNLT Speed Margin (KCAS)</span><input id="tpNltMargin" type="number" value="50" step="1"></label>
+<label class="tempField"><span>Recovery Maneuver Delay (s)</span><input id="tpManeuverTime" type="number" value="2" step="1"></label>
+<label class="tempField"><span>Dive Angle (°)</span><input id="tpDiveAngle" type="number" value="45" step="1"></label>
+<label class="tempField"><span>Wind Direction FROM (°)</span><input id="tpWindDirection" type="number" value="0" step="1"></label>
 <label class="tempField"><span>Wind Speed (m/s)</span><input id="tpWindSpeed" type="number" value="0" step="1"></label>
-<label class="tempField"><span>Initial Speed (mach/kcas)</span><span class="tempCompound"><input id="tpInitialSpeed" type="number" value="350" step="1"><select id="tpInitialUnit"><option value="MACH">mach</option><option value="CAS" selected>kcas</option></select></span></label>
-<label class="tempField"><span>Initial Altitude (ft msl)</span><input id="tpInitialAltitude" type="number" value="16000" step="1"></label>
+<label class="tempField"><span>Initial Speed (Mach/KCAS)</span><span class="tempCompound"><input id="tpInitialSpeed" type="number" value="350" step="1"><select id="tpInitialUnit"><option value="MACH">Mach</option><option value="CAS" selected>KCAS</option></select></span></label>
+<label class="tempField"><span>Initial Altitude (ft MSL)</span><input id="tpInitialAltitude" type="number" value="16000" step="1"></label>
 <label class="tempField"><span>Solve Mode</span><select id="tpSolveMode"><option value="height" selected>Initial Altitude</option><option value="time">Tracking Time</option></select></label>
-<label class="tempField"><span>Tracking Time (sec)</span><input id="tpTrackingTime" type="number" value="18" step="1"></label>
-<label class="tempField"><span>Release Altitude (ft msl)</span><input id="tpReleaseAltitude" type="number" value="6800" step="1"></label>
+<label class="tempField"><span>Tracking Time (s)</span><input id="tpTrackingTime" type="number" value="18" step="1"></label>
+<label class="tempField"><span>Release Altitude (ft MSL)</span><input id="tpReleaseAltitude" type="number" value="6800" step="1"></label>
 <label class="tempField"><span>Angle-Off (deg)</span><input id="tpRollHeading" type="number" value="90" readonly></label>
-<label class="tempField"><span>Roll-in Bank Angle (deg)</span><input id="tpRollBank" type="number" value="113" step="1"></label>
-<label class="tempField"><span>Bank Auto Link</span><span class="tempCheck"><input id="tpBankAuto" type="checkbox" checked><span>90 deg + Dive/2</span></span></label>
+<label class="tempField"><span>Roll-in Bank Angle (°)</span><input id="tpRollBank" type="number" value="113" step="1"></label>
+<label class="tempField"><span>Bank Auto Link</span><span class="tempCheck"><input id="tpBankAuto" type="checkbox" checked><span>90° + Dive/2</span></span></label>
 <label class="tempField"><span>Roll-in G (G)</span><input id="tpRollG" type="number" value="4" step="0.1"></label>
 </div>
 <div class="tempReadouts" style="display:none">
@@ -77,7 +77,7 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}input[type=num
 </div>
 <div class="tempActions"><button id="tpReset" type="button">REV.1.7 기본값 복원</button><button id="tpRecalc" type="button">Profile → BOX Recalculate</button></div>
 <div id="embedStatus" class="embedStatus good">REV.1.7 work contract 계산 코어가 이 HTML 안에 직접 탑재되어 있습니다. 외부 파일을 읽지 않습니다.</div>
-<div class="embedHint">Standalone 작업본용 임베드 모듈입니다. <b>Angle-Off (Heading)은 BOX용 90 deg로 고정</b>하고, REV.1.7 work contract 계산 결과의 <b>Initial Speed / Ground Range / Roll-in Radius</b>를 BOX Imported Context로 자동 전달합니다. CAS는 화면에 표시하고 TAS는 내부 계산에만 사용합니다. 최종 FE에서는 이 TEMP 블록과 계산 코어를 제거하고 FE 데이터 객체에 연결합니다.</div>
+<div class="embedHint">Standalone 작업본용 임베드 모듈입니다. <b>Angle-Off (Heading)은 BOX용 90°로 고정</b>하고, REV.1.7 work contract 계산 결과의 <b>Initial Speed / Ground Range / Roll-in Radius</b>를 BOX Imported Context로 자동 전달합니다. CAS는 화면에 표시하고 TAS는 내부 계산에만 사용합니다. 최종 FE에서는 이 TEMP 블록과 계산 코어를 제거하고 FE 데이터 객체에 연결합니다.</div>
 </div></details>
 </div></section>
 <div class="grid">
@@ -85,14 +85,14 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}input[type=num
 <details class="input-panel" open>
 <summary>Bomb Parameter 변경</summary><div class="content">
 <div class="field"><label>Angle-Off (deg)</label><input id="bpRollDisplay" type="number" value="90" step="1" readonly></div>
-<div class="field"><label>Initial Speed (mach/kcas)</label><span style="display:grid;grid-template-columns:1fr 82px"><input id="bpInitialSpeed" type="number" step="1"><select id="bpInitialUnit"><option value="MACH">mach</option><option value="CAS">kcas</option></select></span></div>
-<div class="field"><label>Initial Altitude (ft msl)</label><input id="bpInitialAltitude" type="number" step="1"></div>
-<div class="field"><label>Dive Angle (deg)</label><input id="bpDiveAngle" type="number" step="1" min="0" max="89"></div>
-<div class="field"><label>Release Altitude (ft msl)</label><input id="bpReleaseAltitude" type="number" step="1"></div>
-<div class="field"><label>RNLT Reference Altitude (ft msl)</label><input id="bpNltReference" type="text" readonly></div>
-<div class="field"><label>Roll-in Range (nm)</label><input id="rollRange" type="text" readonly></div>
-<div class="field"><label>Roll-in Radius (nm)</label><input id="rollRadiusDisplay" type="text" readonly></div>
-<div class="field"><label>Base Distance (NM)</label><input id="baseDistanceDisplay" type="text" readonly></div><div class="footerNote">Dive Bomb Profile Shared State와 양방향 동기화. BOX Angle-Off (Heading)은 90 deg 고정.</div>
+<div class="field"><label>Initial Speed (Mach/KCAS)</label><span style="display:grid;grid-template-columns:1fr 82px"><input id="bpInitialSpeed" type="number" step="1"><select id="bpInitialUnit"><option value="MACH">Mach</option><option value="CAS">KCAS</option></select></span></div>
+<div class="field"><label>Initial Altitude (ft MSL)</label><input id="bpInitialAltitude" type="number" step="1"></div>
+<div class="field"><label>Dive Angle (°)</label><input id="bpDiveAngle" type="number" step="1" min="0" max="89"></div>
+<div class="field"><label>Release Altitude (ft MSL)</label><input id="bpReleaseAltitude" type="number" step="1"></div>
+<div class="field"><label>RNLT Reference Altitude (ft MSL)</label><input id="bpNltReference" type="text" readonly></div>
+<div class="field"><label>Roll-in Range (NM)</label><input id="rollRange" type="text" readonly></div>
+<div class="field"><label>Roll-in Radius (NM)</label><input id="rollRadiusDisplay" type="text" readonly></div>
+<div class="field"><label>Base Distance (NM)</label><input id="baseDistanceDisplay" type="text" readonly></div><div class="footerNote">Dive Bomb Profile Shared State와 양방향 동기화. BOX Angle-Off (Heading)은 90° 고정.</div>
 <input id="bpRoll" type="hidden" value="90"><input id="initialSpeed" type="hidden" value="450"><select id="speedUnit" style="display:none"><option value="kt" selected>kt</option></select>
 <input id="groundRange" type="hidden" value="2.4"><input id="rollRadius" type="hidden" value="1.2"><input id="profileRollRange" type="hidden" value="3.6"><input id="outDistance" type="hidden" value="0"><select id="rangeUnit" style="display:none"><option value="nm" selected>nm</option></select>
 </div></details>
@@ -100,50 +100,50 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}input[type=num
 <details class="input-panel" open>
 <summary>BOX Pattern</summary><div class="content">
 <div class="field"><label>Pattern Direction</label><select id="direction"><option value="R" selected>RIGHT</option><option value="L">LEFT</option></select></div>
-<div class="field"><label>Attack Heading (deg)</label><input id="inHeading" type="number" value="360" min="0" max="360" step="1"></div>
+<div class="field"><label>Attack Heading (°)</label><input id="inHeading" type="number" value="360" min="0" max="360" step="1"></div>
 </div></details>
 
 <details class="input-panel" open>
 <summary>Abeam / Base Turn</summary><div class="content">
 <div class="turnbox"><div class="minihead"><strong>Base Turn</strong><span class="sync">Default: Initial Speed / 2.0 G</span></div><div class="turngrid">
-<label>Speed (kcas)<input id="baseSpeed" type="number" step="1"></label>
+<label>Speed (KCAS)<input id="baseSpeed" type="number" step="1"></label>
 <label>Turn G (G)<input id="baseG" type="number" step="0.1" min="1.0"></label>
-<label>Turn Radius (nm)<input id="baseRadius" type="number" step="0.1" min="0.1"></label>
-<label>Bank Angle (deg)<input id="baseBank" type="number" step="1" min="0" max="89"></label>
+<label>Turn Radius (NM)<input id="baseRadius" type="number" step="0.1" min="0.1"></label>
+<label>Bank Angle (°)<input id="baseBank" type="number" step="1" min="0" max="89"></label>
 </div></div>
-<div class="field"><label>Abeam Extension Distance (nm)</label><input id="extDistance" type="number" step="0.1"></div>
-<div class="field"><label>Abeam Extension Time (sec)</label><input id="extTime" type="number" step="1"></div>
-<div class="field"><label>Abeam Extension Speed (kcas)</label><input id="extSpeed" type="number" step="1" min="1"></div>
+<div class="field"><label>Abeam Extension Distance (NM)</label><input id="extDistance" type="number" step="0.1"></div>
+<div class="field"><label>Abeam Extension Time (s)</label><input id="extTime" type="number" step="1"></div>
+<div class="field"><label>Abeam Extension Speed (KCAS)</label><input id="extSpeed" type="number" step="1" min="1"></div>
 </div></details>
 
 <details class="input-panel" open>
 <summary>Cross Leg / Cross Turn</summary><div class="content">
 <div class="turnbox"><div class="minihead"><strong>Cross Turn</strong><span id="crossSync" class="sync">Base Turn Linked</span></div><div class="turngrid">
-<label>Speed (kcas)<input id="crossSpeed" type="number" step="1"></label>
+<label>Speed (KCAS)<input id="crossSpeed" type="number" step="1"></label>
 <label>Turn G (G)<input id="crossG" type="number" step="0.1" min="1.0"></label>
-<label>Turn Radius (nm)<input id="crossRadius" type="number" step="0.1" min="0.1"></label>
-<label>Bank Angle (deg)<input id="crossBank" type="number" step="1" min="0" max="89"></label>
+<label>Turn Radius (NM)<input id="crossRadius" type="number" step="0.1" min="0.1"></label>
+<label>Bank Angle (°)<input id="crossBank" type="number" step="1" min="0" max="89"></label>
 </div></div>
-<div class="field"><label>Cross Leg Extension Distance (nm)</label><input id="crossExtDistance" type="number" step="0.1"></div>
-<div class="field"><label>Cross Leg Extension Time (sec)</label><input id="crossExtTime" type="number" step="1"></div>
-<div class="field"><label>Cross Leg Extension Speed (kcas)</label><input id="crossExtSpeed" type="number" step="1" min="1"></div>
+<div class="field"><label>Cross Leg Extension Distance (NM)</label><input id="crossExtDistance" type="number" step="0.1"></div>
+<div class="field"><label>Cross Leg Extension Time (s)</label><input id="crossExtTime" type="number" step="1"></div>
+<div class="field"><label>Cross Leg Extension Speed (KCAS)</label><input id="crossExtSpeed" type="number" step="1" min="1"></div>
 <div class="field"><label>Base Turn Link</label><div class="syncChoice" role="group" aria-label="Base Turn Link"><button id="crossLinkOn" class="active" type="button" aria-pressed="true">O</button><button id="crossLinkOff" type="button" aria-pressed="false">X</button></div></div>
-<div class="footerNote">Base Leg 기본값 = 2.0 nm. Cross Leg는 Base Leg 2.0 nm가 되도록 자동 설정하며, CLIMB/Turn 최소거리 조건이 더 크면 그 조건을 우선합니다.</div>
+<div class="footerNote">Base Leg 기본값 = 2.0 NM. Cross Leg는 Base Leg 2.0 NM가 되도록 자동 설정하며, CLIMB/Turn 최소거리 조건이 더 크면 그 조건을 우선합니다.</div>
 </div></details>
 
 <details class="input-panel" id="outPanel">
 <summary>OUT Maneuver</summary><div class="content">
 <div class="field"><label>OUT Mode</label><select id="outMode"><option value="CLIMB" selected>CLIMB</option><option value="LEVEL">LEVEL</option></select></div>
-<div class="field"><label>OUT Speed (kcas)</label><input id="outSpeed" type="number" step="1" value="450"></div>
+<div class="field"><label>OUT Speed (KCAS)</label><input id="outSpeed" type="number" step="1" value="450"></div>
 <div class="field"><label>Recovery G (G)</label><input id="recoveryG" type="number" step="0.1" min="1.1" value="5.0"></div>
-<div class="field"><label>Level-off Altitude (ft msl)</label><input id="levelOffAltitude" class="readonlyBox" type="text" readonly></div>
-<div class="field"><label>Climb Pitch (deg)</label><input id="climbPitch" type="number" step="1" min="0" value="35"></div>
+<div class="field"><label>Level-off Altitude (ft MSL)</label><input id="levelOffAltitude" class="readonlyBox" type="text" readonly></div>
+<div class="field"><label>Climb Pitch (°)</label><input id="climbPitch" type="number" step="1" min="0" value="35"></div>
 <div class="field"><label>Climb G (G)</label><input id="climbG" type="number" step="0.1" min="1.1" value="2.5"></div>
-<div class="field"><label>Level-off Speed (kcas)</label><input id="levelOffSpeed" type="number" step="1" min="1" value="350"></div>
-<div class="field"><label>Recovery Distance (nm)</label><input id="recoveryDistance" class="readonlyBox" type="text" readonly></div>
-<div class="field"><label>Climb Distance (nm)</label><input id="climbDistance" class="readonlyBox" type="text" readonly></div>
-<div class="field"><label>OUT Turn Bank (deg)</label><input id="outTurnBank" class="readonlyBox" type="text" readonly></div>
-<div class="field"><label>OUT Horizontal Path (nm)</label><input id="outHorizontalPath" class="readonlyBox" type="text" readonly></div>
+<div class="field"><label>Level-off Speed (KCAS)</label><input id="levelOffSpeed" type="number" step="1" min="1" value="350"></div>
+<div class="field"><label>Recovery Distance (NM)</label><input id="recoveryDistance" class="readonlyBox" type="text" readonly></div>
+<div class="field"><label>Climb Distance (NM)</label><input id="climbDistance" class="readonlyBox" type="text" readonly></div>
+<div class="field"><label>OUT Turn Bank (°)</label><input id="outTurnBank" class="readonlyBox" type="text" readonly></div>
+<div class="field"><label>OUT Horizontal Path (NM)</label><input id="outHorizontalPath" class="readonlyBox" type="text" readonly></div>
 <div class="outNote">Recovery는 Release 지점부터 조작 지연 + 0° pitch까지의 constant-G pull-up 원호 근사. CLIMB는 0°→Climb Pitch 전환(Climb G) + Initial 고도까지의 일정 pitch 상승으로 계산.</div>
 </div></details>
 </div>
@@ -152,63 +152,63 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}input[type=num
 <details class="input-panel resultCard"><summary>Result</summary><div class="content"><div class="table-wrap"><table class="result-table"><colgroup><col class="result-label-col"><col class="result-colon-col"><col></colgroup><tbody>
 <tr class="result-profile-title"><td class="result-label">TITLE</td><td class="result-colon">:</td><td class="result-value" id="rBoxTitle">-</td></tr>
 <tr class="result-group"><td colspan="3">[Geometry]</td></tr>
-<tr><td class="result-label">Target Altitude (ft msl)</td><td class="result-colon">:</td><td class="result-value" id="rTargetAltitude">-</td></tr>
-<tr><td class="result-label">Initial Altitude (ft msl)</td><td class="result-colon">:</td><td class="result-value" id="rInitialAltitude">-</td></tr>
-<tr><td class="result-label">Initial Speed (kcas/mach)</td><td class="result-colon">:</td><td class="result-value" id="rInitialSpeed">-</td></tr>
-<tr><td class="result-label">Roll-in Range (Horizontal/Slant) (nm)</td><td class="result-colon">:</td><td class="result-value" id="mRollRange">-</td></tr>
-<tr><td class="result-label">Ground Range (nm)</td><td class="result-colon">:</td><td class="result-value" id="mGround">-</td></tr>
-<tr><td class="result-label">Aim-Off Distance (AOD) (ft/nm)</td><td class="result-colon">:</td><td class="result-value" id="rAod">-</td></tr>
-<tr><td class="result-label">Roll-in Radius (nm)</td><td class="result-colon">:</td><td class="result-value" id="mRollRadius">-</td></tr>
+<tr><td class="result-label">Target Altitude (ft MSL)</td><td class="result-colon">:</td><td class="result-value" id="rTargetAltitude">-</td></tr>
+<tr><td class="result-label">Initial Altitude (ft MSL)</td><td class="result-colon">:</td><td class="result-value" id="rInitialAltitude">-</td></tr>
+<tr><td class="result-label">Initial Speed (KCAS / Mach)</td><td class="result-colon">:</td><td class="result-value" id="rInitialSpeed">-</td></tr>
+<tr><td class="result-label">Roll-in Range (Horizontal/Slant) (NM)</td><td class="result-colon">:</td><td class="result-value" id="mRollRange">-</td></tr>
+<tr><td class="result-label">Ground Range (Horizontal) (NM)</td><td class="result-colon">:</td><td class="result-value" id="mGround">-</td></tr>
+<tr><td class="result-label">Aim-Off Distance (AOD, Horizontal) (ft / NM)</td><td class="result-colon">:</td><td class="result-value" id="rAod">-</td></tr>
+<tr><td class="result-label">Roll-in Radius (NM)</td><td class="result-colon">:</td><td class="result-value" id="mRollRadius">-</td></tr>
 
 <tr class="result-group"><td colspan="3">[Bombing Profile]</td></tr>
-<tr><td class="result-label">Angle-Off (Heading)</td><td class="result-colon">:</td><td class="result-value" id="rRollTurn">-</td></tr>
-<tr><td class="result-label">Dive Angle</td><td class="result-colon">:</td><td class="result-value" id="rDiveAngle">-</td></tr>
-<tr><td class="result-label">Aim-Off Range (AOR)</td><td class="result-colon">:</td><td class="result-value" id="rAor">-</td></tr>
-<tr><td class="result-label">Roll-in Bank/Gs</td><td class="result-colon">:</td><td class="result-value" id="rRollBankG">-</td></tr>
-<tr><td class="result-label">Track Point Altitude (Roll-out) (ft msl)</td><td class="result-colon">:</td><td class="result-value" id="rTrackAltitude">-</td></tr>
-<tr><td class="result-label">Tracking Time (sec)</td><td class="result-colon">:</td><td class="result-value" id="rTrackingTime">-</td></tr>
-<tr><td class="result-label">Release Altitude (ft msl)</td><td class="result-colon">:</td><td class="result-value" id="rReleaseAltitude">-</td></tr>
-<tr><td class="result-label">RNLT</td><td class="result-colon">:</td><td class="result-value" id="rNlt">-</td></tr>
-<tr><td class="result-label">MINALT</td><td class="result-colon">:</td><td class="result-value" id="rMra">-</td></tr>
+<tr><td class="result-label">Angle-Off (°)</td><td class="result-colon">:</td><td class="result-value" id="rRollTurn">-</td></tr>
+<tr><td class="result-label">Dive Angle (°)</td><td class="result-colon">:</td><td class="result-value" id="rDiveAngle">-</td></tr>
+<tr><td class="result-label">Aim-Off Range (AOR, Horizontal) (ft / NM)</td><td class="result-colon">:</td><td class="result-value" id="rAor">-</td></tr>
+<tr><td class="result-label">Roll-in Bank / G (° / G)</td><td class="result-colon">:</td><td class="result-value" id="rRollBankG">-</td></tr>
+<tr><td class="result-label">Track Point Altitude (Roll-out) (ft MSL)</td><td class="result-colon">:</td><td class="result-value" id="rTrackAltitude">-</td></tr>
+<tr><td class="result-label">Tracking Time (s)</td><td class="result-colon">:</td><td class="result-value" id="rTrackingTime">-</td></tr>
+<tr><td class="result-label">Release Altitude (ft MSL)</td><td class="result-colon">:</td><td class="result-value" id="rReleaseAltitude">-</td></tr>
+<tr><td class="result-label">RNLT (ft MSL)</td><td class="result-colon">:</td><td class="result-value" id="rNlt">-</td></tr>
+<tr><td class="result-label">MINALT (ft MSL)</td><td class="result-colon">:</td><td class="result-value" id="rMra">-</td></tr>
 
 <tr class="result-group"><td colspan="3">[Time]</td></tr>
-<tr><td class="result-label">Bomb TOF (sec)</td><td class="result-colon">:</td><td class="result-value" id="rBombTof">-</td></tr>
-<tr><td class="result-label">Roll-in to Impact Time (sec)</td><td class="result-colon">:</td><td class="result-value" id="rRollImpactTime">-</td></tr>
+<tr><td class="result-label">Bomb TOF (s)</td><td class="result-colon">:</td><td class="result-value" id="rBombTof">-</td></tr>
+<tr><td class="result-label">Roll-in to Impact Time (s)</td><td class="result-colon">:</td><td class="result-value" id="rRollImpactTime">-</td></tr>
 
 <tr class="result-group"><td colspan="3">[BOX Pattern]</td></tr>
 <tr><td class="result-label">Pattern Direction</td><td class="result-colon">:</td><td class="result-value" id="rPatternDirection">-</td></tr>
-<tr><td class="result-label">Attack Heading (deg)</td><td class="result-colon">:</td><td class="result-value" id="rInHeading">-</td></tr>
-<tr><td class="result-label">Pattern Width (nm)</td><td class="result-colon">:</td><td class="result-value" id="mWidth">-</td></tr>
-<tr><td class="result-label">Cross Leg Extension Distance (nm)</td><td class="result-colon">:</td><td class="result-value" id="mCrossStraight">-</td></tr>
-<tr><td class="result-label">Cross Leg Extension Time (sec)</td><td class="result-colon">:</td><td class="result-value" id="mCrossExtTime">-</td></tr>
-<tr><td class="result-label">Cross Leg Extension Speed (kcas)</td><td class="result-colon">:</td><td class="result-value" id="mCrossExtSpeed">-</td></tr>
-<tr><td class="result-label">Base Leg (nm)</td><td class="result-colon">:</td><td class="result-value" id="mBaseLeg">-</td></tr>
-<tr><td class="result-label">Abeam Extension Distance (nm)</td><td class="result-colon">:</td><td class="result-value" id="mExtDist">-</td></tr>
-<tr><td class="result-label">Abeam Extension Time (sec)</td><td class="result-colon">:</td><td class="result-value" id="mExtTime">-</td></tr>
-<tr><td class="result-label">Abeam Extension Speed (kcas)</td><td class="result-colon">:</td><td class="result-value" id="mExtSpeed">-</td></tr>
-<tr><td class="result-label">OUT Auto Extension (nm)</td><td class="result-colon">:</td><td class="result-value" id="mOutExt">-</td></tr>
+<tr><td class="result-label">Attack Heading (°)</td><td class="result-colon">:</td><td class="result-value" id="rInHeading">-</td></tr>
+<tr><td class="result-label">Pattern Width (NM)</td><td class="result-colon">:</td><td class="result-value" id="mWidth">-</td></tr>
+<tr><td class="result-label">Cross Leg Extension Distance (NM)</td><td class="result-colon">:</td><td class="result-value" id="mCrossStraight">-</td></tr>
+<tr><td class="result-label">Cross Leg Extension Time (s)</td><td class="result-colon">:</td><td class="result-value" id="mCrossExtTime">-</td></tr>
+<tr><td class="result-label">Cross Leg Extension Speed (KCAS)</td><td class="result-colon">:</td><td class="result-value" id="mCrossExtSpeed">-</td></tr>
+<tr><td class="result-label">Base Leg (NM)</td><td class="result-colon">:</td><td class="result-value" id="mBaseLeg">-</td></tr>
+<tr><td class="result-label">Abeam Extension Distance (NM)</td><td class="result-colon">:</td><td class="result-value" id="mExtDist">-</td></tr>
+<tr><td class="result-label">Abeam Extension Time (s)</td><td class="result-colon">:</td><td class="result-value" id="mExtTime">-</td></tr>
+<tr><td class="result-label">Abeam Extension Speed (KCAS)</td><td class="result-colon">:</td><td class="result-value" id="mExtSpeed">-</td></tr>
+<tr><td class="result-label">OUT Auto Extension (NM)</td><td class="result-colon">:</td><td class="result-value" id="mOutExt">-</td></tr>
 
 <tr class="result-group"><td colspan="3">[Turn]</td></tr>
-<tr><td class="result-label">Base Turn Speed (kcas)</td><td class="result-colon">:</td><td class="result-value" id="mBaseSpeed">-</td></tr>
-<tr><td class="result-label">Base Turn G</td><td class="result-colon">:</td><td class="result-value" id="mBaseG">-</td></tr>
-<tr><td class="result-label">Base Turn Radius (nm)</td><td class="result-colon">:</td><td class="result-value" id="mBaseRadius">-</td></tr>
-<tr><td class="result-label">Base Turn Bank (deg)</td><td class="result-colon">:</td><td class="result-value" id="mBaseBank">-</td></tr>
-<tr><td class="result-label">Cross Turn Speed (kcas)</td><td class="result-colon">:</td><td class="result-value" id="mCrossSpeed">-</td></tr>
-<tr><td class="result-label">Cross Turn G</td><td class="result-colon">:</td><td class="result-value" id="mCrossG">-</td></tr>
-<tr><td class="result-label">Cross Turn Radius (nm)</td><td class="result-colon">:</td><td class="result-value" id="mCrossRadius">-</td></tr>
-<tr><td class="result-label">Cross Turn Bank (deg)</td><td class="result-colon">:</td><td class="result-value" id="mCrossBank">-</td></tr>
+<tr><td class="result-label">Base Turn Speed (KCAS)</td><td class="result-colon">:</td><td class="result-value" id="mBaseSpeed">-</td></tr>
+<tr><td class="result-label">Base Turn G (G)</td><td class="result-colon">:</td><td class="result-value" id="mBaseG">-</td></tr>
+<tr><td class="result-label">Base Turn Radius (NM)</td><td class="result-colon">:</td><td class="result-value" id="mBaseRadius">-</td></tr>
+<tr><td class="result-label">Base Turn Bank (°)</td><td class="result-colon">:</td><td class="result-value" id="mBaseBank">-</td></tr>
+<tr><td class="result-label">Cross Turn Speed (KCAS)</td><td class="result-colon">:</td><td class="result-value" id="mCrossSpeed">-</td></tr>
+<tr><td class="result-label">Cross Turn G (G)</td><td class="result-colon">:</td><td class="result-value" id="mCrossG">-</td></tr>
+<tr><td class="result-label">Cross Turn Radius (NM)</td><td class="result-colon">:</td><td class="result-value" id="mCrossRadius">-</td></tr>
+<tr><td class="result-label">Cross Turn Bank (°)</td><td class="result-colon">:</td><td class="result-value" id="mCrossBank">-</td></tr>
 
 <tr class="result-group"><td colspan="3">[OUT]</td></tr>
 <tr><td class="result-label">OUT Mode</td><td class="result-colon">:</td><td class="result-value" id="rOutMode">-</td></tr>
-<tr><td class="result-label">OUT Speed</td><td class="result-colon">:</td><td class="result-value" id="rOutSpeed">-</td></tr>
-<tr><td class="result-label">Recovery G</td><td class="result-colon">:</td><td class="result-value" id="rRecoveryG">-</td></tr>
-<tr><td class="result-label">Level-off Altitude</td><td class="result-colon">:</td><td class="result-value" id="rLevelOffAltitude">-</td></tr>
-<tr><td class="result-label">Recovery Distance</td><td class="result-colon">:</td><td class="result-value" id="rRecoveryDistance">-</td></tr>
-<tr><td class="result-label">Climb Pitch / G</td><td class="result-colon">:</td><td class="result-value" id="rClimbPitchG">-</td></tr>
-<tr><td class="result-label">Climb Distance</td><td class="result-colon">:</td><td class="result-value" id="rClimbDistance">-</td></tr>
-<tr><td class="result-label">Level-off Speed</td><td class="result-colon">:</td><td class="result-value" id="rLevelOffSpeed">-</td></tr>
-<tr><td class="result-label">OUT Turn Bank</td><td class="result-colon">:</td><td class="result-value" id="rOutTurnBank">-</td></tr>
-<tr><td class="result-label">OUT Horizontal Path</td><td class="result-colon">:</td><td class="result-value" id="rOutHorizontalPath">-</td></tr>
+<tr><td class="result-label">OUT Speed (KCAS)</td><td class="result-colon">:</td><td class="result-value" id="rOutSpeed">-</td></tr>
+<tr><td class="result-label">Recovery G (G)</td><td class="result-colon">:</td><td class="result-value" id="rRecoveryG">-</td></tr>
+<tr><td class="result-label">Level-off Altitude (ft MSL)</td><td class="result-colon">:</td><td class="result-value" id="rLevelOffAltitude">-</td></tr>
+<tr><td class="result-label">Recovery Distance (NM)</td><td class="result-colon">:</td><td class="result-value" id="rRecoveryDistance">-</td></tr>
+<tr><td class="result-label">Climb Pitch / G (° / G)</td><td class="result-colon">:</td><td class="result-value" id="rClimbPitchG">-</td></tr>
+<tr><td class="result-label">Climb Distance (NM)</td><td class="result-colon">:</td><td class="result-value" id="rClimbDistance">-</td></tr>
+<tr><td class="result-label">Level-off Speed (KCAS)</td><td class="result-colon">:</td><td class="result-value" id="rLevelOffSpeed">-</td></tr>
+<tr><td class="result-label">OUT Turn Bank (°)</td><td class="result-colon">:</td><td class="result-value" id="rOutTurnBank">-</td></tr>
+<tr><td class="result-label">OUT Horizontal Path (NM)</td><td class="result-colon">:</td><td class="result-value" id="rOutHorizontalPath">-</td></tr>
 </tbody></table></div><div id="errorBox" class="errorBox"></div><div id="geometryNote" class="footerNote"></div></div></details>
 
 <section class="card viz primaryViz"><div class="vizbar"><strong>Top View</strong><div hidden class="zoomControls" aria-label="Top View 확대 축소"><button id="topViewZoomOut" type="button" aria-label="축소">−</button><button id="topViewZoomReset" class="zoomReset" type="button" aria-label="100퍼센트로 복원">100%</button><button id="topViewZoomIn" type="button" aria-label="확대">+</button></div><div class="legend"><span><i class="dot targetDot"></i>Target</span><span><i class="dot abeamDot"></i>Abeam</span><span><i class="dot trackDot"></i>Track Point / Roll-out</span></div><span>OUT Recovery + CLIMB geometry included</span><button id="fullTopView" class="chartFullBtn" type="button">전체화면</button><button id="saveTopView" class="chartSaveBtn" type="button">PNG 저장</button></div>
@@ -283,8 +283,8 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}input[type=num
 
     var diagramTitle = title(data.profileTitle || "", data.beTitle || "");
     text(325, 28, diagramTitle, "middle", TITLE_FS);
-    text(42, 82, format(data.initialKcas, 0) + " kcas");
-    text(372, 82, format(data.initialMsl, 0) + " ft msl", "middle");
+    text(42, 82, format(data.initialKcas, 0) + " KCAS");
+    text(372, 82, format(data.initialMsl, 0) + " ft MSL", "middle");
     var rollInNm = (Number(data.rollInRangeFt) || 0) / FT_PER_NM;
     var slantNm = (Number(data.slantFt) || 0) / FT_PER_NM;
     var groundNm = (Number(data.groundFt) || 0) / FT_PER_NM;
@@ -294,10 +294,10 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}input[type=num
       line(50, 98, topX, 98, 3.5);
       line(left, levelY, impactX, levelY, 3.5);
       line(left, baseY, impactX, baseY, 3.5);
-      text(topX - 126, topY + 38, "0 deg");
-      text(470, 132, format(rollInNm, 1) + " nm (Roll-in)");
-      text(470, 158, format(slantNm, 1) + " nm (Slant)");
-      text(470, 184, format(groundNm, 1) + " nm (Ground)");
+      text(topX - 126, topY + 38, "0°");
+      text(470, 132, format(rollInNm, 1) + " NM (Roll-in)");
+      text(470, 158, format(slantNm, 1) + " NM (Slant)");
+      text(470, 184, format(groundNm, 1) + " NM (Ground)");
       var samples = Array.isArray(data.bombSamples) ? data.bombSamples : [];
       if (samples.length > 1) {
         var bombRange = Math.max(1, Number(data.bombRangeFt) || samples[samples.length - 1].x || 1);
@@ -311,43 +311,43 @@ input[type=number]{appearance:textfield;-moz-appearance:textfield}input[type=num
       }
       line(releaseX, levelY - 14, releaseX, levelY + 14, 3);
       text(releaseX + 18, levelY + 8, "Planned Release");
-      text(releaseX + 18, levelY + 32, format(data.releaseMsl, 0) + " ft msl");
+      text(releaseX + 18, levelY + 32, format(data.releaseMsl, 0) + " ft MSL");
       text(74, levelY + 78, "Release Speed");
-      text(74, levelY + 102, format(data.releaseKcas, 0) + " kcas");
+      text(74, levelY + 102, format(data.releaseKcas, 0) + " KCAS");
       text(218, baseY - 16, "MINALT", "end");
-      text(230, baseY - 16, format(data.minAltMsl, 0) + " ft msl");
-      text(42, 478, "RNLT " + format(data.rnltMsl, 0) + " ft msl");
+      text(230, baseY - 16, format(data.minAltMsl, 0) + " ft MSL");
+      text(42, 478, "RNLT " + format(data.rnltMsl, 0) + " ft MSL");
     } else {
       var plannedY = 224, rnltY = 332;
       var plannedX = diagX(plannedY), rnltX = diagX(rnltY);
       line(50, 98, topX, 98, 3.5);
       line(left, baseY, topX, topY, 3.5);
-      text(topX - 126, topY + 38, format(data.diveAngle, 0) + " deg");
-      text(470, 132, format(rollInNm, 1) + " nm (Roll-in)");
-      text(470, 158, format(slantNm, 1) + " nm (Slant)");
-      text(470, 184, format(groundNm, 1) + " nm (Ground)");
+      text(topX - 126, topY + 38, format(data.diveAngle, 0) + "°");
+      text(470, 132, format(rollInNm, 1) + " NM (Roll-in)");
+      text(470, 158, format(slantNm, 1) + " NM (Slant)");
+      text(470, 184, format(groundNm, 1) + " NM (Ground)");
       line(plannedX - 100, plannedY, plannedX + 118, plannedY, 3);
       text(plannedX + 125, plannedY + 6, "Planned Release");
-      text(plannedX + 125, plannedY + 30, format(data.releaseMsl, 0) + " ft msl");
+      text(plannedX + 125, plannedY + 30, format(data.releaseMsl, 0) + " ft MSL");
       text(74, plannedY + 72, "Release Speed");
-      text(74, plannedY + 96, format(data.releaseKcas, 0) + " kcas");
+      text(74, plannedY + 96, format(data.releaseKcas, 0) + " KCAS");
       line(rnltX - 76, rnltY, rnltX + 130, rnltY, 3);
       text(rnltX + 140, rnltY + 6, "RNLT Release");
-      text(rnltX + 140, rnltY + 30, format(data.rnltMsl, 0) + " ft msl");
+      text(rnltX + 140, rnltY + 30, format(data.rnltMsl, 0) + " ft MSL");
       line(left, baseY, topX, baseY, 3.5);
       text(218, baseY - 16, "MINALT", "end");
-      text(230, baseY - 16, format(data.minAltMsl, 0) + " ft msl");
+      text(230, baseY - 16, format(data.minAltMsl, 0) + " ft MSL");
     }
 
-    text(42, 518, "Aim-Off Angle:"); text(400, 518, format(data.aimOffAngle, 0) + " deg");
-    text(42, 548, data.rollInLeadLabel || "Roll-in Lead:"); text(400, 548, format(data.rollInLead, 0) + " deg");
+    text(42, 518, "Aim-Off Angle:"); text(400, 518, format(data.aimOffAngle, 0) + "°");
+    text(42, 548, data.rollInLeadLabel || "Roll-in Lead:"); text(400, 548, format(data.rollInLead, 0) + "°");
     extraRows.forEach(function (row, index) {
       var y = 578 + index * 30;
       text(42, y, row.label); text(400, y, String(row.value));
     });
     var trackingY = 578 + extraRows.length * 30;
-    text(42, trackingY, "Tracking Time:"); text(400, trackingY, format(data.trackingTime, 0) + " sec");
-    text(42, trackingY + 30, "Roll-in to Impact Time:"); text(400, trackingY + 30, format(data.rollInToImpactTime, 0) + " sec");
+    text(42, trackingY, "Tracking Time:"); text(400, trackingY, format(data.trackingTime, 0) + " s");
+    text(42, trackingY + 30, "Roll-in to Impact Time:"); text(400, trackingY + 30, format(data.rollInToImpactTime, 0) + " s");
     return diagramTitle;
   }
 
@@ -360,14 +360,15 @@ const $=id=>document.getElementById(id),G0=9.80665,NM=1852,BASE_LEG_DEFAULT_M=2*
 const fmt=(v,d=2)=>Number.isFinite(v)?v.toFixed(d):'—';
 const toMps=(v,u)=>u==='kt'?v*0.514444:v,fromMps=(v,u)=>u==='kt'?v/0.514444:v;
 const toM=(v,u)=>u==='nm'?v*NM:v*1000,fromM=(v,u)=>u==='nm'?v/NM:v/1000;
-const rUnit=()=> $('rangeUnit').value==='nm'?'nm':'km';
+const rUnit=()=> $('rangeUnit').value==='nm'?'NM':'km';
 const normH=h=>((h%360)+360)%360;
 const state={profile:{V:0,ground:0,rollR:0,rollRange:0,out:0},base:{V:0,n:0,R:0,bank:0},cross:{V:0,n:0,R:0,bank:0},crossLinked:true,crossLegCustom:false,ext:{D:0,T:0,V:0},crossLeg:{D:0,T:0,V:0},crossStraightM:0,out:{mode:'CLIMB',outSpeedKcas:450,recoveryG:5,climbPitch:35,climbG:2.5,levelOffSpeedKcas:350,levelOffAltitude:0,recoveryDistanceM:0,releaseToTargetM:0,recoveryEndTargetM:0,baseOutM:0,straightClimbBeforeTurnM:0,climbDistanceM:0,climbCrossMinM:0,outTurnBank:0,totalHorizontalM:0,error:'',custom:{outSpeed:false,recoveryG:false,climbPitch:false,climbG:false,levelOffSpeed:false}}};
 let lastBpResult=null;
 function patternAltitudeMsl(){return lastBpResult?.prof?.initialMsl||Math.max(0,+$('bpInitialAltitude').value||+$('tpInitialAltitude').value||0)}
 function patternCasToMps(cas){return bpCasToTas(Math.max(.1,cas),patternAltitudeMsl())*.514444}
 function patternMpsToCas(mps){return bpTasToCas(Math.max(.1,mps)/.514444,patternAltitudeMsl())}
-function kcas(v){return `${fmt(patternMpsToCas(v),0)} kcas`}
+function kcasValue(v){return fmt(patternMpsToCas(v),0)}
+function kcas(v){return `${kcasValue(v)} KCAS`}
 function nFromBank(bank){return 1/Math.cos(bank*Math.PI/180)}
 function bankFromN(n){return Math.acos(1/Math.max(1.000001,n))*180/Math.PI}
 function radialG(n){return Math.sqrt(Math.max(0,n*n-1))}
@@ -491,7 +492,7 @@ function validateGeometry(v){
  if(v.E < -eps) errors.push('Abeam Extension Distance는 0 이상이어야 합니다.');
  if(v.C < -eps) errors.push('Cross Leg Extension Distance cannot be negative.');
  const minCross=Math.max(0,v.Rb-v.Rc,state.out.climbCrossMinM||0);
- if(v.C+eps < minCross) errors.push(`Cross Leg Extension is below minimum. Required >= ${fmt(fromM(minCross,$('rangeUnit').value),1)} nm.`);if(state.out.error)errors.push(state.out.error);
+ if(v.C+eps < minCross) errors.push(`Cross Leg Extension is below minimum. Required >= ${fmt(fromM(minCross,$('rangeUnit').value),1)} NM.`);if(state.out.error)errors.push(state.out.error);
  if(v.width + eps < v.Rout + v.Rb) errors.push('Pattern Width must be >= Roll-in Radius + Base Turn Radius.');
  if(v.baseStraight < -eps) errors.push('BASE LEG is negative; the Base Turn cannot connect to the Roll-in with the current geometry.');
  if(state.base.n < 1 || state.cross.n < 1) errors.push('Turn G must be 1.0 G or greater.');
@@ -505,58 +506,58 @@ function recalc(){
  const C=state.crossStraightM,width=Rout+C+Rc,baseStraight=width-Rout-Rb,crossEndToAbeam=effectiveOut+Rout-Rc;
  const v={Rout,Rb,Rc,C,width,E:state.ext.D,baseStraight,crossEndToAbeam},errors=validateGeometry(v);
  // BOX-specific result values, formatted by BE Common precision contract.
- $('mWidth').textContent=`${fmt(fromM(width,'nm'),1)} nm`;
- $('mCrossStraight').textContent=`${fmt(fromM(C,'nm'),1)} nm`;
- $('mCrossExtTime').textContent=`${fmt(state.crossLeg.T,0)} sec`;
- $('mCrossExtSpeed').textContent=kcas(state.crossLeg.V);
- $('mBaseLeg').textContent=`${fmt(fromM(baseStraight,'nm'),1)} nm`;
- $('mExtDist').textContent=`${fmt(fromM(state.ext.D,'nm'),1)} nm`;
- $('mExtTime').textContent=`${fmt(state.ext.T,0)} sec`;
- $('mExtSpeed').textContent=kcas(state.ext.V);
- $('mOutExt').textContent=`${fmt(fromM(autoOut,'nm'),1)} nm`;
- $('mBaseSpeed').textContent=kcas(state.base.V);
- $('mBaseG').textContent=`${fmt(state.base.n,1)} G`;
- $('mBaseRadius').textContent=`${fmt(fromM(Rb,'nm'),1)} nm`;
- $('mBaseBank').textContent=`${fmt(state.base.bank,0)} deg`;
- $('mCrossSpeed').textContent=kcas(state.cross.V);
- $('mCrossG').textContent=`${fmt(state.cross.n,1)} G`;
- $('mCrossRadius').textContent=`${fmt(fromM(Rc,'nm'),1)} nm`;
- $('mCrossBank').textContent=`${fmt(state.cross.bank,0)} deg`;
+ $('mWidth').textContent=fmt(fromM(width,'nm'),1);
+ $('mCrossStraight').textContent=fmt(fromM(C,'nm'),1);
+ $('mCrossExtTime').textContent=fmt(state.crossLeg.T,0);
+ $('mCrossExtSpeed').textContent=kcasValue(state.crossLeg.V);
+ $('mBaseLeg').textContent=fmt(fromM(baseStraight,'nm'),1);
+ $('mExtDist').textContent=fmt(fromM(state.ext.D,'nm'),1);
+ $('mExtTime').textContent=fmt(state.ext.T,0);
+ $('mExtSpeed').textContent=kcasValue(state.ext.V);
+ $('mOutExt').textContent=fmt(fromM(autoOut,'nm'),1);
+ $('mBaseSpeed').textContent=kcasValue(state.base.V);
+ $('mBaseG').textContent=fmt(state.base.n,1);
+ $('mBaseRadius').textContent=fmt(fromM(Rb,'nm'),1);
+ $('mBaseBank').textContent=fmt(state.base.bank,0);
+ $('mCrossSpeed').textContent=kcasValue(state.cross.V);
+ $('mCrossG').textContent=fmt(state.cross.n,1);
+ $('mCrossRadius').textContent=fmt(fromM(Rc,'nm'),1);
+ $('mCrossBank').textContent=fmt(state.cross.bank,0);
  if(lastBpResult){
   const p=lastBpResult.p,prof=lastBpResult.prof,safety=lastBpResult.safety,bomb=lastBpResult.bomb,o=state.out;
   bpDrawZDiagram(p,bomb,prof,safety);
   const initialCas=bpTasToCas(prof.initialTas,prof.initialMsl),initialMach=prof.initialTas/bpAtmosphere(prof.initialMsl).soundKt,impactTime=prof.roll.time+prof.trackingTime+bomb.tof;
   $('rBoxTitle').textContent=bpZDiagramTitle(p);
-  $('rTargetAltitude').textContent=`${fmt(p.targetElevation,0)} ft msl`;
-  $('rInitialAltitude').textContent=`${fmt(prof.initialMsl,0)} ft msl`;
-  $('rInitialSpeed').textContent=`${fmt(initialCas,0)} kcas / mach ${fmt(initialMach,1)}`;
-  $('mRollRange').textContent=`${fmt(prof.totalGround/BP_FT_PER_NM,1)} nm Horizontal / ${fmt(prof.initialSlant/BP_FT_PER_NM,1)} nm Slant`;
-  $('mGround').textContent=`${fmt(prof.mapGround/BP_FT_PER_NM,1)} nm Horizontal`;
-  $('rAod').textContent=bomb.aod===null?'N/A · LEVEL':`${fmt(Math.abs(bomb.aod),1)} ft / ${fmt(Math.abs(bomb.aod)/BP_FT_PER_NM,1)} nm Horizontal`;
-  $('mRollRadius').textContent=`${fmt(prof.effectiveRollInRadius/BP_FT_PER_NM,1)} nm`;
-  $('rRollTurn').textContent='90 deg';
-  $('rDiveAngle').textContent=`${fmt(p.diveAngle,0)} deg`;
-  $('rAor').textContent=prof.aimOffRange===null?'N/A · LEVEL':`${fmt(prof.aimOffRange,1)} ft / ${fmt(prof.aimOffRange/BP_FT_PER_NM,1)} nm Horizontal`;
-  $('rRollBankG').textContent=`${fmt(p.rollBank,0)} deg / ${fmt(p.rollG,1)} G`;
-  $('rTrackAltitude').textContent=`${fmt(prof.trackMsl,0)} ft msl`;
-  $('rTrackingTime').textContent=`${fmt(prof.trackingTime,0)} sec`;
-  $('rReleaseAltitude').textContent=`${fmt(prof.releaseMsl,0)} ft msl`;
-  $('rNlt').textContent=`${fmt(safety.rnltMsl,0)} ft msl`;
-  $('rMra').textContent=`${fmt(safety.minAltMsl,0)} ft msl`;
-  $('rBombTof').textContent=`${fmt(bomb.tof,0)} sec`;
-  $('rRollImpactTime').textContent=`${fmt(impactTime,0)} sec`;
+  $('rTargetAltitude').textContent=fmt(p.targetElevation,0);
+  $('rInitialAltitude').textContent=fmt(prof.initialMsl,0);
+  $('rInitialSpeed').textContent=`${fmt(initialCas,0)} / ${fmt(initialMach,2)}`;
+  $('mRollRange').textContent=`${fmt(prof.totalGround/BP_FT_PER_NM,1)} / ${fmt(prof.initialSlant/BP_FT_PER_NM,1)}`;
+  $('mGround').textContent=fmt(prof.mapGround/BP_FT_PER_NM,1);
+  $('rAod').textContent=bomb.aod===null?'N/A · LEVEL':`${fmt(Math.abs(bomb.aod),0)} / ${fmt(Math.abs(bomb.aod)/BP_FT_PER_NM,1)}`;
+  $('mRollRadius').textContent=fmt(prof.effectiveRollInRadius/BP_FT_PER_NM,1);
+  $('rRollTurn').textContent='90';
+  $('rDiveAngle').textContent=fmt(p.diveAngle,0);
+  $('rAor').textContent=prof.aimOffRange===null?'N/A · LEVEL':`${fmt(prof.aimOffRange,0)} / ${fmt(prof.aimOffRange/BP_FT_PER_NM,1)}`;
+  $('rRollBankG').textContent=`${fmt(p.rollBank,0)} / ${fmt(p.rollG,1)}`;
+  $('rTrackAltitude').textContent=fmt(prof.trackMsl,0);
+  $('rTrackingTime').textContent=fmt(prof.trackingTime,0);
+  $('rReleaseAltitude').textContent=fmt(prof.releaseMsl,0);
+  $('rNlt').textContent=fmt(safety.rnltMsl,0);
+  $('rMra').textContent=fmt(safety.minAltMsl,0);
+  $('rBombTof').textContent=fmt(bomb.tof,0);
+  $('rRollImpactTime').textContent=fmt(impactTime,0);
   $('rPatternDirection').textContent=$('direction').value==='R'?'RIGHT':'LEFT';
-  $('rInHeading').textContent=`${fmt(normH(+$('inHeading').value||0),0)} deg`;
+  $('rInHeading').textContent=fmt(normH(+$('inHeading').value||0),0);
   $('rOutMode').textContent=o.mode;
-  $('rOutSpeed').textContent=`${fmt(o.outSpeedKcas,0)} kcas`;
-  $('rRecoveryG').textContent=`${fmt(o.recoveryG,1)} G`;
-  $('rLevelOffAltitude').textContent=`${fmt(o.levelOffAltitude,0)} ft msl`;
-  $('rRecoveryDistance').textContent=`${fmt(fromM(o.recoveryDistanceM,'nm'),1)} nm`;
-  $('rClimbPitchG').textContent=o.mode==='CLIMB'?`${fmt(o.climbPitch,0)} deg / ${fmt(o.climbG,1)} G`:'0 deg / 0.0 G';
-  $('rClimbDistance').textContent=`${fmt(fromM(o.climbDistanceM,'nm'),1)} nm`;
-  $('rLevelOffSpeed').textContent=`${fmt(o.levelOffSpeedKcas,0)} kcas`;
-  $('rOutTurnBank').textContent=`${fmt(o.outTurnBank,0)} deg`;
-  $('rOutHorizontalPath').textContent=`${fmt(fromM(o.totalHorizontalM,'nm'),1)} nm`;
+  $('rOutSpeed').textContent=fmt(o.outSpeedKcas,0);
+  $('rRecoveryG').textContent=fmt(o.recoveryG,1);
+  $('rLevelOffAltitude').textContent=fmt(o.levelOffAltitude,0);
+  $('rRecoveryDistance').textContent=fmt(fromM(o.recoveryDistanceM,'nm'),1);
+  $('rClimbPitchG').textContent=o.mode==='CLIMB'?`${fmt(o.climbPitch,0)} / ${fmt(o.climbG,1)}`:'0 / 0.0';
+  $('rClimbDistance').textContent=fmt(fromM(o.climbDistanceM,'nm'),1);
+  $('rLevelOffSpeed').textContent=fmt(o.levelOffSpeedKcas,0);
+  $('rOutTurnBank').textContent=fmt(o.outTurnBank,0);
+  $('rOutHorizontalPath').textContent=fmt(fromM(o.totalHorizontalM,'nm'),1);
  }
  if(errors.length){$('status').textContent='GEOMETRY ERROR';$('status').className='status error';$('errorBox').className='errorBox show';$('errorBox').innerHTML=`<strong>GEOMETRY ERROR</strong><ul>${errors.map(e=>`<li>${e}</li>`).join('')}</ul>`;}else{$('status').textContent='UI WORK · Rev1.5 calculation baseline';$('status').className='status';$('errorBox').className='errorBox';$('errorBox').innerHTML='';}
  $('geometryNote').innerHTML=`<span class="formula">Roll-in Range = Dive Bomb Profile totalGround · Roll-in Radius = effectiveRollInRadius</span><br><span class="formula">OUT Turn Start = max(Target, Release + Recovery Distance, geometry minimum)</span><br><span class="formula">Cross Leg Min = max(0, Base R − Cross R, remaining Climb after OUT straight/turn)</span><br><span class="formula">Pattern Width = OUT Turn R + Cross Leg Extension + Cross Turn R</span><br><span class="formula">BASE LEG = Cross Leg Extension + Cross Turn R − Base Turn R</span>`;
@@ -621,22 +622,22 @@ function draw(x){const gg=$('gridLayer'),g=$('patternLayer');gg.innerHTML='';g.i
  const rollInLabel=pointLabel(rollStartScreen,'Roll-in',true);
  const clampGrid=p=>[Math.max(20,Math.min(980,p[0])),Math.max(15,Math.min(635,p[1]))];
  const a1=clampGrid(localToScreen(0,-Math.max(x.width,1)*1.16,d.scale,x.H,d.cx,d.cy)),a2=clampGrid(localToScreen(0,Math.max(x.width,1)*1.16,d.scale,x.H,d.cx,d.cy));g.innerHTML+=`<line class="abeamLine" x1="${a1[0]}" y1="${a1[1]}" x2="${a2[0]}" y2="${a2[1]}"/>`;
- const crossInfo = x.C>1 ? [`${fmt(secFor(x.C,state.crossLeg.V),0)} sec`] : [];
- const downInfo = x.crossEndToAbeam>1 ? [`${fmt(fromM(x.crossEndToAbeam,'nm'),1)} nm`, kcas(state.cross.V), `${fmt(secFor(x.crossEndToAbeam,state.cross.V),0)} sec`] : [];
- const abeamInfo = Math.abs(x.E)>1 ? [`${fmt(fromM(x.E,'nm'),1)} nm`, kcas(state.ext.V), `${fmt(secFor(Math.abs(x.E),state.ext.V),0)} sec`] : [];
- const baseInfo = Math.abs(x.baseStraight)>1 ? [`${fmt(secFor(Math.abs(x.baseStraight),state.base.V),0)} sec`] : [];
+ const crossInfo = x.C>1 ? [`${fmt(secFor(x.C,state.crossLeg.V),0)} s`] : [];
+ const downInfo = x.crossEndToAbeam>1 ? [`${fmt(fromM(x.crossEndToAbeam,'nm'),1)} NM`, kcas(state.cross.V), `${fmt(secFor(x.crossEndToAbeam,state.cross.V),0)} s`] : [];
+ const abeamInfo = Math.abs(x.E)>1 ? [`${fmt(fromM(x.E,'nm'),1)} NM`, kcas(state.ext.V), `${fmt(secFor(Math.abs(x.E),state.ext.V),0)} s`] : [];
+ const baseInfo = Math.abs(x.baseStraight)>1 ? [`${fmt(secFor(Math.abs(x.baseStraight),state.base.V),0)} s`] : [];
  const patternSide=x.dir==='R'?1:-1,rangeSide=-patternSide,bombsPlacement=patternSide<0?'left':'right',bombsAwayMarkup=svgTextBlock(releaseScreen[0],releaseScreen[1],'Bombs Away',[],bombsPlacement);
  g.innerHTML+=`<line class="leg leg-final" x1="${trackScreen[0].toFixed(1)}" y1="${trackScreen[1].toFixed(1)}" x2="${releaseScreen[0].toFixed(1)}" y2="${releaseScreen[1].toFixed(1)}" marker-end="url(#mBlue)"/>${bombsAwayMarkup}`;
- const rollRangeX=Math.max(48,Math.min(952,targetScreen[0]+rangeSide*90)),rollRangeLabelX=rollRangeX+rangeSide*26,rollRangeLabelRotation=rangeSide<0?90:-90,rollRangeTop=Math.min(targetScreen[1],rollStartScreen[1]),rollRangeBottom=Math.max(targetScreen[1],rollStartScreen[1]),rollRangeMid=(rollRangeTop+rollRangeBottom)/2,rollRangeCapHalf=17,rollRangeText=`Roll-in Range: ${fmt(fromM(x.rollRange,'nm'),1)} nm`,rollRangeTextSpan=rollRangeText.length*7.8;
+ const rollRangeX=Math.max(48,Math.min(952,targetScreen[0]+rangeSide*90)),rollRangeLabelX=rollRangeX+rangeSide*26,rollRangeLabelRotation=rangeSide<0?90:-90,rollRangeTop=Math.min(targetScreen[1],rollStartScreen[1]),rollRangeBottom=Math.max(targetScreen[1],rollStartScreen[1]),rollRangeMid=(rollRangeTop+rollRangeBottom)/2,rollRangeCapHalf=17,rollRangeText=`Roll-in Range: ${fmt(fromM(x.rollRange,'nm'),1)} NM`,rollRangeTextSpan=rollRangeText.length*7.8;
  chartLabelRects.push({x:rollRangeLabelX-12,y:rollRangeMid-rollRangeTextSpan/2,w:24,h:rollRangeTextSpan});
  g.innerHTML+=`<g class="rangeDimensionGroup"><line class="rangeCap" x1="${rollRangeX-rollRangeCapHalf}" y1="${rollRangeTop.toFixed(1)}" x2="${rollRangeX+rollRangeCapHalf}" y2="${rollRangeTop.toFixed(1)}"/><line class="rangeCap" x1="${rollRangeX-rollRangeCapHalf}" y1="${rollRangeBottom.toFixed(1)}" x2="${rollRangeX+rollRangeCapHalf}" y2="${rollRangeBottom.toFixed(1)}"/><line class="rangeDimension" x1="${rollRangeX}" y1="${rollRangeTop.toFixed(1)}" x2="${rollRangeX}" y2="${rollRangeBottom.toFixed(1)}" marker-start="url(#mDimension)" marker-end="url(#mDimension)"/><g class="labelGroup rangeDimensionLabelGroup"><text class="label" x="${rollRangeLabelX}" y="${rollRangeMid.toFixed(1)}" text-anchor="middle" transform="rotate(${rollRangeLabelRotation} ${rollRangeLabelX} ${rollRangeMid.toFixed(1)})">${rollRangeText}</text></g></g>`;
- const outInfo=[`${fmt(state.out.recoveryG,1)} G · Level`,...(state.out.mode==='CLIMB'?[`Climb Angle ${fmt(state.out.climbPitch,0)} deg`]:[])];g.innerHTML+=svgLine(release,outStart,d,'OUT Maneuver','leg-out','mBlue',outInfo,true,x.dir==='L'?'left':'right');
+ const outInfo=[`${fmt(state.out.recoveryG,1)} G · Level`,...(state.out.mode==='CLIMB'?[`Climb Angle ${fmt(state.out.climbPitch,0)}°`]:[])];g.innerHTML+=svgLine(release,outStart,d,'OUT Maneuver','leg-out','mBlue',outInfo,true,x.dir==='L'?'left':'right');
  g.innerHTML+=`<path class="turn turn-out" d="${path(outArc,d)}" marker-end="url(#mWhite)"/>`;
  if(x.C>1)g.innerHTML+=svgLine(outEnd,crossStart,d,'Crosswind Lag','leg-cross','mCyan',crossInfo,true,'below');
- g.innerHTML+=svgArc(crossArc,d,'Cross Turn','turn-cross','mCyan',[`${kcas(state.cross.V)} · ${fmt(state.cross.n,1)} G · ${fmt(state.cross.bank,0)} deg bank`,`Radius ${fmt(fromM(state.cross.R,'nm'),1)} nm`],'right');
+ g.innerHTML+=svgArc(crossArc,d,'Cross Turn','turn-cross','mCyan',[`${kcas(state.cross.V)} · ${fmt(state.cross.n,1)} G · ${fmt(state.cross.bank,0)}° bank`,`Radius ${fmt(fromM(state.cross.R,'nm'),1)} NM`],'right');
  if(x.crossEndToAbeam>1)g.innerHTML+=svgLine(crossEnd,abeam,d,'Downwind','leg-down','mGreen',downInfo);
  if(Math.abs(x.E)>1)g.innerHTML+=svgLine(abeam,baseStart,d,'Abeam Extension','leg-abeam','mYellow',abeamInfo);
- g.innerHTML+=svgArc(baseArc,d,'Base Turn','turn-base','mYellow',[`${kcas(state.base.V)} · ${fmt(state.base.n,1)} G · ${fmt(state.base.bank,0)} deg bank`,`Radius ${fmt(fromM(state.base.R,'nm'),1)} nm`],'right');
+ g.innerHTML+=svgArc(baseArc,d,'Base Turn','turn-base','mYellow',[`${kcas(state.base.V)} · ${fmt(state.base.n,1)} G · ${fmt(state.base.bank,0)}° bank`,`Radius ${fmt(fromM(state.base.R,'nm'),1)} NM`],'right');
  if(Math.abs(x.baseStraight)>1)g.innerHTML+=svgLine(baseEnd,rollStart,d,'Base Lag','leg-base','mPurple',baseInfo,true,'above');
  g.innerHTML+=`<path class="turn turn-roll" d="${path(rollArc,d)}" marker-end="url(#mPurple)"/>`;
  const tp=targetScreen,ap=abeamScreen,targetSide=-patternSide,targetX=Math.max(28,Math.min(972,tp[0]+targetSide*14)),targetAnchor=targetSide<0?'end':'start',abeamX=Math.max(28,Math.min(972,ap[0]+patternSide*22)),abeamY=Math.max(28,Math.min(622,ap[1]-24)),abeamAnchor=patternSide<0?'end':'start';g.innerHTML+=`<circle class="targetpt" cx="${tp[0]}" cy="${tp[1]}" r="6"/><line class="targetCross" x1="${tp[0]-12}" y1="${tp[1]}" x2="${tp[0]+12}" y2="${tp[1]}"/><line class="targetCross" x1="${tp[0]}" y1="${tp[1]-12}" x2="${tp[0]}" y2="${tp[1]+12}"/><text class="label" x="${targetX}" y="${tp[1]+22}" text-anchor="${targetAnchor}">Target</text><circle class="abeampt" cx="${ap[0]}" cy="${ap[1]}" r="5"/><text class="label" x="${abeamX}" y="${abeamY}" text-anchor="${abeamAnchor}">Abeam</text><circle class="trackpt" cx="${trackScreen[0]}" cy="${trackScreen[1]}" r="5"/>${rollInLabel}`;
@@ -718,16 +719,16 @@ function bpParams(){
  if(!(p.initialSpeed>0))throw new Error('Initial 속도는 0보다 커야 합니다.');
  if(!(p.diveAngle>=0&&p.diveAngle<90))throw new Error('Dive Angle은 0° 이상 90° 미만이어야 합니다.');
  if(!(p.releaseMsl>p.targetElevation))throw new Error('Release 고도 MSL은 Target 고도 MSL보다 높아야 합니다.');
- if(!(p.releaseSpeed>0))throw new Error('Release Speed는 0 kcas보다 커야 합니다.');
+ if(!(p.releaseSpeed>0))throw new Error('Release Speed는 0 KCAS보다 커야 합니다.');
  if(!(p.escapeG>1&&p.escapeG<=9))throw new Error('Recovery G는 1G보다 크고 9G 이하여야 합니다.');
- if(!(p.rnltSpeedMargin>=0))throw new Error('RNLT Speed Margin은 0 kcas 이상이어야 합니다.');
- if(!(p.maneuverTime>=0))throw new Error('Recovery Maneuver Delay는 0 sec 이상이어야 합니다.');
+ if(!(p.rnltSpeedMargin>=0))throw new Error('RNLT Speed Margin은 0 KCAS 이상이어야 합니다.');
+ if(!(p.maneuverTime>=0))throw new Error('Recovery Maneuver Delay는 0 s 이상이어야 합니다.');
  if(!(p.windDirection>=0&&p.windDirection<=360))throw new Error('Wind Direction은 0° 이상 360° 이하여야 합니다.');
  if(!(p.windSpeed>=0))throw new Error('Wind Speed는 0 m/s 이상이어야 합니다.');
  if(!(p.rollBank>0&&p.rollBank<180))throw new Error('Roll-in Bank Angle은 0°보다 크고 180°보다 작아야 합니다.');
  if(!(p.rollG>1&&p.rollG<=9))throw new Error('Roll-in G는 1G보다 크고 9G 이하여야 합니다.');
  if(p.diveAngle>0&&p.solveMode==='height'&&!(p.initialAltitude>p.releaseMsl))throw new Error('Initial 고도 MSL은 Release 고도 MSL보다 높아야 합니다.');
- if((p.solveMode==='time'||p.diveAngle===0)&&!(p.trackingTime>0))throw new Error('Tracking Time은 0 sec보다 커야 합니다.');
+ if((p.solveMode==='time'||p.diveAngle===0)&&!(p.trackingTime>0))throw new Error('Tracking Time은 0 s보다 커야 합니다.');
  $('tpRollHeading').value='90';return p;
 }
 function bpDeliveryProfileName(p){if(Math.abs(p.diveAngle)<1e-9)return'VLD';if(p.diveAngle>30)return'HADB';if(Math.abs(p.diveAngle-30)<1e-9)return'DB';return p.weapon.drag>=1||p.weapon.name.indexOf('(HD)')!==-1?'LAHD':'LALD'}
@@ -745,19 +746,19 @@ const BECommonZDiagramLegacy=(()=>{
   const ink='#111111',left=50,topX=478,topY=98,baseY=442,TITLE_FS=27,BODY_FS=18,FW=900,add=(name,attrs,content)=>{const n=node(name,attrs,content);out.appendChild(n);return n},line=(x1,y1,x2,y2,w=3)=>add('line',{x1,y1,x2,y2,stroke:ink,'stroke-width':w,'stroke-linecap':'square'}),txt=(x,y,value,anchor='start',size=BODY_FS)=>add('text',{x,y,fill:ink,'font-size':size,'font-weight':FW,'text-anchor':anchor},value),diagX=y=>left+(baseY-y)/(baseY-topY)*(topX-left);
   const diagramTitle=title(data.profileTitle||'',data.beTitle||'');txt(325,28,diagramTitle,'middle',TITLE_FS);txt(42,82,`${zfmt(data.initialKcas,0)} KCAS`);txt(372,82,`${zfmt(data.initialMsl,0)} ft MSL`,'middle');
   const totalNm=(+data.rollInRangeFt||0)/FT_PER_NM,slantNm=(+data.slantFt||0)/FT_PER_NM,groundNm=(+data.groundFt||0)/FT_PER_NM;
-  if(data.levelDelivery){const levelY=188,releaseX=110,impactX=topX;line(50,98,topX,98,3.5);line(left,levelY,impactX,levelY,3.5);line(left,baseY,impactX,baseY,3.5);txt(topX-126,topY+38,'0°');txt(470,132,`${zfmt(totalNm,1)}nm(Roll in)`);txt(470,158,`${zfmt(slantNm,1)}nm(Slant)`);txt(470,184,`${zfmt(groundNm,1)}nm(Ground)`);
+  if(data.levelDelivery){const levelY=188,releaseX=110,impactX=topX;line(50,98,topX,98,3.5);line(left,levelY,impactX,levelY,3.5);line(left,baseY,impactX,baseY,3.5);txt(topX-126,topY+38,'0°');txt(470,132,`${zfmt(totalNm,1)} NM (Roll in)`);txt(470,158,`${zfmt(slantNm,1)} NM (Slant)`);txt(470,184,`${zfmt(groundNm,1)} NM (Ground)`);
    const samples=Array.isArray(data.bombSamples)?data.bombSamples:[];if(samples.length>1){const bombRange=Math.max(1,+data.bombRangeFt||samples[samples.length-1].x||1),releaseAgl=Math.max(1,+data.releaseAglFt||1),d=samples.map((s,i)=>{const px=releaseX+(+s.x||0)/bombRange*(impactX-releaseX),py=levelY+(1-(+s.altitude||0)/releaseAgl)*(baseY-levelY);return`${i?'L':'M'}${px.toFixed(1)},${py.toFixed(1)}`}).join(' ');add('path',{d,fill:'none',stroke:ink,'stroke-width':3,'stroke-linecap':'round'})}
    line(releaseX,levelY-14,releaseX,levelY+14,3);txt(releaseX+18,levelY+8,'PLANNED RELEASE');txt(releaseX+18,levelY+32,`${zfmt(data.releaseMsl,0)} ft MSL`);txt(74,levelY+78,'RELEASE SPEED');txt(74,levelY+102,`${zfmt(data.releaseKcas,0)} KCAS`);txt(218,baseY-16,'MINALT','end');txt(230,baseY-16,`${zfmt(data.minAltMsl,0)} ft MSL`);txt(42,478,`RNLT ${zfmt(data.rnltMsl,0)} ft MSL`);
-  }else{const plannedY=224,rnltY=332,plannedX=diagX(plannedY),rnltX=diagX(rnltY);line(50,98,topX,98,3.5);line(left,baseY,topX,topY,3.5);txt(topX-126,topY+38,`${zfmt(data.diveAngle,0)}°`);txt(470,132,`${zfmt(totalNm,1)}nm(Roll in)`);txt(470,158,`${zfmt(slantNm,1)}nm(Slant)`);txt(470,184,`${zfmt(groundNm,1)}nm(Ground)`);line(plannedX-100,plannedY,plannedX+118,plannedY,3);txt(plannedX+125,plannedY+6,'PLANNED RELEASE');txt(plannedX+125,plannedY+30,`${zfmt(data.releaseMsl,0)} ft MSL`);txt(74,plannedY+72,'RELEASE SPEED');txt(74,plannedY+96,`${zfmt(data.releaseKcas,0)} KCAS`);line(rnltX-76,rnltY,rnltX+130,rnltY,3);txt(rnltX+140,rnltY+6,'RNLT RELEASE');txt(rnltX+140,rnltY+30,`${zfmt(data.rnltMsl,0)} ft MSL`);line(left,baseY,topX,baseY,3.5);txt(218,baseY-16,'MINALT','end');txt(230,baseY-16,`${zfmt(data.minAltMsl,0)} ft MSL`)}
-  txt(42,518,'AIM-OFF ANGLE:');txt(400,518,`${zfmt(data.aimOffAngle,0)}°`);txt(42,548,'ROLL-IN LEAD:');txt(400,548,`${zfmt(data.rollInLead,0)}°`);txt(42,578,'TRACKING TIME:');txt(400,578,`${zfmt(data.trackingTime,0)} sec`);txt(42,608,'ROLL-IN TO IMPACT TIME:');txt(400,608,`${zfmt(data.rollInToImpactTime,0)} sec`);return diagramTitle;
+  }else{const plannedY=224,rnltY=332,plannedX=diagX(plannedY),rnltX=diagX(rnltY);line(50,98,topX,98,3.5);line(left,baseY,topX,topY,3.5);txt(topX-126,topY+38,`${zfmt(data.diveAngle,0)}°`);txt(470,132,`${zfmt(totalNm,1)} NM (Roll in)`);txt(470,158,`${zfmt(slantNm,1)} NM (Slant)`);txt(470,184,`${zfmt(groundNm,1)} NM (Ground)`);line(plannedX-100,plannedY,plannedX+118,plannedY,3);txt(plannedX+125,plannedY+6,'PLANNED RELEASE');txt(plannedX+125,plannedY+30,`${zfmt(data.releaseMsl,0)} ft MSL`);txt(74,plannedY+72,'RELEASE SPEED');txt(74,plannedY+96,`${zfmt(data.releaseKcas,0)} KCAS`);line(rnltX-76,rnltY,rnltX+130,rnltY,3);txt(rnltX+140,rnltY+6,'RNLT RELEASE');txt(rnltX+140,rnltY+30,`${zfmt(data.rnltMsl,0)} ft MSL`);line(left,baseY,topX,baseY,3.5);txt(218,baseY-16,'MINALT','end');txt(230,baseY-16,`${zfmt(data.minAltMsl,0)} ft MSL`)}
+  txt(42,518,'AIM-OFF ANGLE:');txt(400,518,`${zfmt(data.aimOffAngle,0)}°`);txt(42,548,'ROLL-IN LEAD:');txt(400,548,`${zfmt(data.rollInLead,0)}°`);txt(42,578,'TRACKING TIME:');txt(400,578,`${zfmt(data.trackingTime,0)} s`);txt(42,608,'ROLL-IN TO IMPACT TIME:');txt(400,608,`${zfmt(data.rollInToImpactTime,0)} s`);return diagramTitle;
  }
  return{draw,title,FT_PER_NM,revision:'0.7-work'};
 })();
 function bpDrawZDiagram(p,bomb,prof,safety){
  const initialCas=patternMpsToCas(state.profile.V),extensionCas=patternMpsToCas(state.ext.V),speedChanged=Math.abs(extensionCas-initialCas)>=.5;
  const extensionLabel=speedChanged?'Abeam Extension Speed / Time:':'Abeam Extension Time:';
- const extensionValue=speedChanged?`${fmt(extensionCas,0)} kcas / ${fmt(state.ext.T,0)} sec`:`${fmt(state.ext.T,0)} sec`;
- const baseTurnValue=`${fmt(patternMpsToCas(state.base.V),0)} kcas / ${fmt(state.base.n,1)} G / ${fmt(state.base.bank,0)} deg`;
+ const extensionValue=speedChanged?`${fmt(extensionCas,0)} KCAS / ${fmt(state.ext.T,0)} s`:`${fmt(state.ext.T,0)} s`;
+ const baseTurnValue=`${fmt(patternMpsToCas(state.base.V),0)} KCAS / ${fmt(state.base.n,1)} G / ${fmt(state.base.bank,0)}°`;
  const diagramTitle=BECommonZDiagram.draw($('tpZSvg'),{profileTitle:bpProfileTitle(p),beTitle:'BOX',initialKcas:bpTasToCas(prof.initialTas,prof.initialMsl),initialMsl:prof.initialMsl,diveAngle:p.diveAngle,rollInRangeFt:prof.totalGround,slantFt:prof.initialSlant,groundFt:prof.mapGround,releaseMsl:prof.releaseMsl,releaseKcas:p.releaseSpeed,rnltMsl:safety.rnltMsl,minAltMsl:safety.minAltMsl,rollInLead:prof.offsetLead,rollInLeadLabel:'Roll-in Lead (BOX):',aimOffAngle:prof.iaa,extraRows:[{label:extensionLabel,value:extensionValue},{label:'Base Turn Speed / G / Bank:',value:baseTurnValue}],trackingTime:prof.trackingTime,rollInToImpactTime:prof.roll.time+prof.trackingTime+bomb.tof,levelDelivery:prof.levelDelivery,bombSamples:bomb.samples,bombRangeFt:bomb.bombRange,releaseAglFt:prof.releaseAgl});
  window.boxUiProfile?.(p,bomb,prof);
  $('tpZTitle').textContent=diagramTitle+' CCIP Z-Diagram';if($('zVisibleTitle'))$('zVisibleTitle').textContent=diagramTitle;
@@ -783,10 +784,10 @@ function bpSyncToBox(result,force=false){
  $('groundRange').value=fmt(groundNm,1);$('rollRadius').value=fmt(radiusNm,1);$('profileRollRange').value=fmt(rollRangeNm,1);
  // TEMP source readouts (hidden, but kept for debugging)
  $('tpMra').textContent=fmt(result.safety.minAltMsl,0)+' ft MSL';$('tpNlt').textContent=fmt(result.safety.rnltMsl,0)+' ft MSL';
- $('tpInitialTasOut').textContent=fmt(tas,1)+' KTAS';$('tpGroundOut').textContent=fmt(groundNm,1)+' nm';$('tpRadiusOut').textContent=fmt(radiusNm,1)+' nm';$('tpRollTimeOut').textContent=fmt(result.prof.roll.time,0)+' sec';
+ $('tpInitialTasOut').textContent=fmt(tas,0)+' KTAS';$('tpGroundOut').textContent=fmt(groundNm,1)+' NM';$('tpRadiusOut').textContent=fmt(radiusNm,1)+' NM';$('tpRollTimeOut').textContent=fmt(result.prof.roll.time,0)+' s';
  if(!force&&sig===bpLastSig)return;bpLastSig=sig;lastBpResult=result;loadProfile(false);syncOutDefaults(result,force);refreshBaseAfterProfile();recalc();
 }
-function bpRecalc(force=false){try{const p=bpParams(),safety=bpLimits(p),calcReleaseMsl=Math.max(p.releaseMsl,safety.rnltMsl),calcP={...p,releaseAgl:calcReleaseMsl-p.targetElevation},releaseTas=bpCasToTas(p.releaseSpeed,calcReleaseMsl),bomb=bpBombTrajectory(calcP,releaseTas),prof=bpProfile(p,bomb,safety);bpSyncToBox({p,safety,bomb,prof},force);$('embedStatus').className='embedStatus good';$('embedStatus').textContent=`REV.1.7 WORK CONTRACT → BOX 자동 연동 · Z-Diagram 포함 · Roll-in 90 deg · Shared Profile · ${bpActiveBallisticModel().label} ${bpActiveBallisticModel().version} · Initial ${fmt(bpTasToCas(prof.initialTas,prof.initialMsl),0)} kcas · Roll-in Range ${fmt(prof.totalGround/BP_FT_PER_NM,1)} nm · Roll-in Radius ${fmt(prof.effectiveRollInRadius/BP_FT_PER_NM,1)} nm`}catch(e){bpLastSig="";window.boxUiClear?.();$('embedStatus').className='embedStatus bad';$('embedStatus').textContent='PROFILE ERROR · '+e.message;const zr=$('tpZRoot');if(zr){zr.replaceChildren();zr.appendChild(bpSvgNode('text',{x:325,y:305,fill:'#bd3333','font-size':17,'font-weight':800,'text-anchor':'middle'},'PROFILE ERROR · Z-DIAGRAM UNAVAILABLE'))}}}
+function bpRecalc(force=false){try{const p=bpParams(),safety=bpLimits(p),calcReleaseMsl=Math.max(p.releaseMsl,safety.rnltMsl),calcP={...p,releaseAgl:calcReleaseMsl-p.targetElevation},releaseTas=bpCasToTas(p.releaseSpeed,calcReleaseMsl),bomb=bpBombTrajectory(calcP,releaseTas),prof=bpProfile(p,bomb,safety);bpSyncToBox({p,safety,bomb,prof},force);$('embedStatus').className='embedStatus good';$('embedStatus').textContent=`REV.1.7 WORK CONTRACT → BOX 자동 연동 · Z-Diagram 포함 · Roll-in 90° · Shared Profile · ${bpActiveBallisticModel().label} ${bpActiveBallisticModel().version} · Initial ${fmt(bpTasToCas(prof.initialTas,prof.initialMsl),0)} KCAS · Roll-in Range ${fmt(prof.totalGround/BP_FT_PER_NM,1)} NM · Roll-in Radius ${fmt(prof.effectiveRollInRadius/BP_FT_PER_NM,1)} NM`}catch(e){bpLastSig="";window.boxUiClear?.();$('embedStatus').className='embedStatus bad';$('embedStatus').textContent='PROFILE ERROR · '+e.message;const zr=$('tpZRoot');if(zr){zr.replaceChildren();zr.appendChild(bpSvgNode('text',{x:325,y:305,fill:'#bd3333','font-size':17,'font-weight':800,'text-anchor':'middle'},'PROFILE ERROR · Z-DIAGRAM UNAVAILABLE'))}}}
 function bpPopulate(){const s=$('tpWeapon');s.innerHTML=BP_WEAPON_DATABASE.map(w=>`<option value="${w.id}">${w.name}</option>`).join('');s.value=bpDefault.weapon}
 function bpReset(){const d=bpDefault;state.out.mode='CLIMB';state.out.custom={outSpeed:false,recoveryG:false,climbPitch:false,climbG:false,levelOffSpeed:false};state.crossLegCustom=false;$('outMode').value='CLIMB';$('tpWeapon').value=d.weapon;$('tpTargetElevation').value=d.targetElevation;$('tpReleaseSpeed').value=d.releaseSpeed;$('tpEscapeG').value=d.escapeG;$('tpNltMargin').value=d.rnltMargin;$('tpManeuverTime').value=d.maneuverTime;$('tpDiveAngle').value=d.diveAngle;$('tpWindDirection').value=d.windDirection;$('tpWindSpeed').value=d.windSpeed;$('tpInitialSpeed').value=d.initialSpeed;$('tpInitialUnit').value=d.initialUnit;$('tpInitialAltitude').value=d.initialAltitude;$('tpSolveMode').value=d.solveMode;$('tpTrackingTime').value=d.trackingTime;$('tpReleaseAltitude').value=d.releaseAltitude;$('tpRollHeading').value=90;$('tpRollBank').value=d.rollBank;$('tpBankAuto').checked=d.bankAuto;$('tpRollG').value=d.rollG;syncInitialSpeedInputPrecision();bpLastSig='';bpRecalc(true)}
 /* ===== END TEMP BOMB PROFILE REV.1.7 WORK CONTRACT CORE ===== */

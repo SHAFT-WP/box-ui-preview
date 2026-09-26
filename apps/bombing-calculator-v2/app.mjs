@@ -7,6 +7,14 @@ import {
   BOX_V2_COMPOSITION_MODEL_V0_2,
   calculateBoxPatternV0_2,
 } from "../../AG/bombing/box-pattern/box-be-v0.2.mjs";
+import {
+  formatDeg,
+  formatFt,
+  formatG,
+  formatKt,
+  formatNm,
+  formatSec,
+} from "../../common/ui/display-precision-v0.1.mjs";
 
 const form = document.querySelector("#plannerForm");
 const resultBody = document.querySelector("#resultBody");
@@ -48,50 +56,51 @@ const BOX_NUMERIC_FIELDS = Object.freeze([
   "crossLegExtensionNm",
 ]);
 
+// Display precision (docs/TERMINOLOGY.md): NM 1 decimal; s, ft, kt and angles integer; G 1 decimal.
 const RESULT_ROWS = Object.freeze([
-  ["Effective Release Altitude", "effectiveReleaseAltitudeMslFt", "ft MSL", 0],
-  ["Resolved Initial Altitude", "resolvedInitialAltitudeMslFt", "ft MSL", 0],
-  ["Resolved Initial Speed", "resolvedInitialSpeedKcas", "KCAS", 0],
-  ["Track Point Altitude", "trackPointAltitudeMslFt", "ft MSL", 0],
-  ["Tracking Time", "trackingTimeSec", "sec", 1],
-  ["Roll-in Range", "rollInRangeNm", "NM", 2],
-  ["MAP", "groundRangeNm", "NM", 2],
-  ["Down Range Travel", "downRangeTravelNm", "NM", 2],
-  ["Bomb Range", "bombRangeNm", "NM", 2],
-  ["Bomb TOF", "bombTofSec", "sec", 1],
-  ["Radius (EFF)", "rollInRadiusNm", "NM", 2],
-  ["Roll-in Time", "rollInTimeSec", "sec", 1],
-  ["Roll-in Ground Arc", "rollInGroundArcNm", "NM", 2],
-  ["Base Distance", "baseDistanceNm", "NM", 2],
-  ["Base Distance (S)", "baseDistanceSlantNm", "NM", 2],
-  ["Roll-in Altitude Loss", "rollInAltitudeLossFt", "ft", 0],
-  ["Roll-in LA", "leadAngleDeg", "deg", 1],
-  ["MINALT", "minAltMslFt", "ft MSL", 0],
-  ["NLT Release", "nltReleaseMslFt", "ft MSL", 0],
+  ["Effective Release Altitude", "effectiveReleaseAltitudeMslFt", "ft MSL", formatFt],
+  ["Resolved Initial Altitude", "resolvedInitialAltitudeMslFt", "ft MSL", formatFt],
+  ["Resolved Initial Speed", "resolvedInitialSpeedKcas", "KCAS", formatKt],
+  ["Track Point Altitude", "trackPointAltitudeMslFt", "ft MSL", formatFt],
+  ["Tracking Time", "trackingTimeSec", "s", formatSec],
+  ["Roll-in Range", "rollInRangeNm", "NM", formatNm],
+  ["MAP", "groundRangeNm", "NM", formatNm],
+  ["Down Range Travel", "downRangeTravelNm", "NM", formatNm],
+  ["Bomb Range", "bombRangeNm", "NM", formatNm],
+  ["Bomb TOF", "bombTofSec", "s", formatSec],
+  ["Radius (EFF)", "rollInRadiusNm", "NM", formatNm],
+  ["Roll-in Time", "rollInTimeSec", "s", formatSec],
+  ["Roll-in Ground Arc", "rollInGroundArcNm", "NM", formatNm],
+  ["Base Distance", "baseDistanceNm", "NM", formatNm],
+  ["Base Distance (S)", "baseDistanceSlantNm", "NM", formatNm],
+  ["Roll-in Altitude Loss", "rollInAltitudeLossFt", "ft", formatFt],
+  ["Roll-in LA", "leadAngleDeg", "°", formatDeg],
+  ["MINALT", "minAltMslFt", "ft MSL", formatFt],
+  ["NLT Release", "nltReleaseMslFt", "ft MSL", formatFt],
 ]);
 
 const BOX_SOURCE_ROWS = Object.freeze([
-  ["BOX Angle-Off", "fixedAngleOffDeg", "deg", 0],
-  ["Initial TAS", "initialTasRoundedKt", "kt", 1],
-  ["MAP", "groundRangeRoundedNm", "NM", 1],
-  ["Radius (EFF)", "rollInRadiusRoundedNm", "NM", 1],
-  ["Roll-in Range", "rollInRangeRoundedNm", "NM", 1],
-  ["Base Distance", "baseDistanceNm", "NM", 2],
+  ["BOX Angle-Off", "fixedAngleOffDeg", "°", formatDeg],
+  ["Initial TAS", "initialTasRoundedKt", "KTAS", formatKt],
+  ["MAP", "groundRangeRoundedNm", "NM", formatNm],
+  ["Radius (EFF)", "rollInRadiusRoundedNm", "NM", formatNm],
+  ["Roll-in Range", "rollInRangeRoundedNm", "NM", formatNm],
+  ["Base Distance", "baseDistanceNm", "NM", formatNm],
 ]);
 
 const BOX_RESULT_ROWS = Object.freeze([
-  ["Base Turn G", "baseG", "G", 1],
-  ["Base Turn Bank", "baseBankDeg", "deg", 1],
-  ["Base Turn Radius", "baseRadiusNm", "NM", 2],
-  ["Crosswind Turn G", "crossG", "G", 1],
-  ["Crosswind Turn Bank", "crossBankDeg", "deg", 1],
-  ["Crosswind Turn Radius", "crossRadiusNm", "NM", 2],
-  ["Abeam Extension Distance", "abeamExtensionDistanceNm", "NM", 2],
-  ["Abeam Extension Time", "abeamExtensionTimeSec", "sec", 1],
-  ["Crosswind Leg Extension", "crossLegExtensionNm", "NM", 2],
-  ["Crosswind Leg Time", "crossLegTimeSec", "sec", 1],
-  ["Pattern Width", "patternWidthNm", "NM", 2],
-  ["Base Leg", "baseLegNm", "NM", 2],
+  ["Base Turn G", "baseG", "G", formatG],
+  ["Base Turn Bank", "baseBankDeg", "°", formatDeg],
+  ["Base Turn Radius", "baseRadiusNm", "NM", formatNm],
+  ["Crosswind Turn G", "crossG", "G", formatG],
+  ["Crosswind Turn Bank", "crossBankDeg", "°", formatDeg],
+  ["Crosswind Turn Radius", "crossRadiusNm", "NM", formatNm],
+  ["Abeam Extension Distance", "abeamExtensionDistanceNm", "NM", formatNm],
+  ["Abeam Extension Time", "abeamExtensionTimeSec", "s", formatSec],
+  ["Crosswind Leg Extension", "crossLegExtensionNm", "NM", formatNm],
+  ["Crosswind Leg Time", "crossLegTimeSec", "s", formatSec],
+  ["Pattern Width", "patternWidthNm", "NM", formatNm],
+  ["Base Leg", "baseLegNm", "NM", formatNm],
 ]);
 
 const SVG_NS = "http://www.w3.org/2000/svg";
@@ -114,23 +123,21 @@ function readBoxInput() {
   return readForm(boxForm, BOX_NUMERIC_FIELDS);
 }
 
-function formatValue(value, decimals) {
+function formatValue(value, format) {
   if (value === null || value === undefined || !Number.isFinite(value)) return "—";
-  return value.toLocaleString(undefined, {
-    minimumFractionDigits: decimals,
-    maximumFractionDigits: decimals,
-  });
+  return format(value);
 }
 
 function renderRows(tbody, source, rows) {
   tbody.replaceChildren();
-  for (const [label, key, unit, decimals] of rows) {
+  for (const [label, key, unit, format] of rows) {
     const row = document.createElement("tr");
     const labelCell = document.createElement("th");
     const valueCell = document.createElement("td");
     labelCell.scope = "row";
-    labelCell.textContent = label;
-    valueCell.textContent = `${formatValue(source[key], decimals)} ${unit}`;
+    // Result notation (docs/TERMINOLOGY.md): unit in the title, numeric-only value.
+    labelCell.textContent = `${label} (${unit})`;
+    valueCell.textContent = formatValue(source[key], format);
     row.append(labelCell, valueCell);
     tbody.append(row);
   }
@@ -285,7 +292,7 @@ function calculateBox(plannerInput) {
   const plannerAngle = Number(plannerInput.angleOffDeg);
   const angleNote = plannerAngle === result.fixedAngleOffDeg
     ? ""
-    : ` · planner display ${formatValue(plannerAngle, 1)}°, BOX source fixed ${result.fixedAngleOffDeg}°`;
+    : ` · planner display ${formatValue(plannerAngle, formatDeg)}°, BOX source fixed ${formatDeg(result.fixedAngleOffDeg)}°`;
   setStatus(
     boxStatus,
     `${result.model.id} · BDP ${result.bombDelivery.model.id}${angleNote}`,
