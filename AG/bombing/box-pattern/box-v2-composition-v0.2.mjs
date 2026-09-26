@@ -1,4 +1,4 @@
-import { calculateBombDelivery } from "../bomb-delivery-planner/bomb-delivery-planner-v0.3.mjs";
+import { calculateBombDeliveryV0_3Full as calculateBombDelivery } from "../bomb-delivery-planner/bomb-delivery-planner-v0.3.mjs";
 import { calculateBoxGeometryV0_2 } from "./box-adapter-v0.2.mjs";
 
 export const BOX_V2_COMPOSITION_MODEL_V0_2 = Object.freeze({
