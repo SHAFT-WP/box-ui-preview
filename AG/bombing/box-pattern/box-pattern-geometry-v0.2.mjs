@@ -8,7 +8,8 @@
 // - the Roll-in side of the pattern is the Roll-in Long. D, the actual OA1 → attack-line offset, where
 //   Rev1.5 used the rounded Radius (EFF): Pattern Width = Roll-in Long. D + Crosswind Leg Extension +
 //   Crosswind Turn Radius, and the OUT Turn radius equals it (Rev1.5 mirrors the Roll-in).
-// The OUT Turn Start, its geometry minimum and the Crosswind Leg minimum follow Rev1.5 `recalc`.
+// The OUT Turn Start, its geometry minimum and the Crosswind Leg minimum follow Rev1.5 `recalc`; the
+// composition computes them (`outClosure`, `crossLeg`) and this module reads them.
 //
 // Frame (NM), Rev1.5's local frame: alongNm along the Attack Heading from the Target (+ past it),
 // sideNm toward the pattern side. The BOX v0.2 result carries no L/R; views draw Rev1.5's default
@@ -16,9 +17,10 @@
 
 export const BOX_PATTERN_GEOMETRY_MODEL_V0_2 = Object.freeze({
   id: "box-pattern-geometry-v0.2",
-  version: "0.2.0",
+  // 0.2.1 (2026-09-29): reads the composition's OUT closure and Crosswind Leg minimum.
+  version: "0.2.1",
   status: "Work / Pure Geometry / Not Official",
-  source: "box-v2-composition-v0.2 result (pattern + out)",
+  source: "box-v2-composition-v0.2 result (pattern + out + outClosure + crossLeg)",
   legacyOracle: "BOX Rev1.5 · R_20260831 recalc / draw",
   frame: "ATTACK_ALONG_PATTERN_SIDE",
 });
@@ -34,12 +36,14 @@ function finite(name, value) {
 }
 
 const at = (alongNm, sideNm) => ({ alongNm, sideNm });
+// The required minimum is stated rounded up to the NM display step, so entering it satisfies it.
+const formatMinimumNm = (nm) => (Math.ceil(nm * 10 - 1e-9) / 10).toFixed(1);
 const quarter = (fn) => Array.from({ length: ARC_SAMPLES + 1 }, (_, index) => fn((Math.PI / 2) * (index / ARC_SAMPLES)));
 
 export function buildBoxPatternGeometryV0_2(boxResult) {
   const semantic = boxResult?.bombDelivery?.visualization?.semanticState;
-  if (!semantic || !boxResult?.pattern || !boxResult?.out || !boxResult?.profileSource) {
-    throw new TypeError("boxResult must be a BOX v0.2 pattern result with its OUT Maneuver");
+  if (!semantic || !boxResult?.pattern || !boxResult?.out || !boxResult?.outClosure || !boxResult?.crossLeg || !boxResult?.profileSource) {
+    throw new TypeError("boxResult must be a BOX v0.2 pattern result with its OUT Maneuver and closure");
   }
   const pattern = boxResult.pattern;
   const out = boxResult.out;
@@ -61,12 +65,8 @@ export function buildBoxPatternGeometryV0_2(boxResult) {
   const widthNm = finite("pattern.patternWidthNm", pattern.patternWidthNm);
 
   // Rev1.5 recalc: OUT Turn Start = max(Target, Release + Recovery Distance, geometry minimum).
-  const minOutNm = Math.max(0, crossTurnRadiusNm - outTurnRadiusNm);
-  const outAutoExtensionNm = Math.max(0, minOutNm - out.outDistanceNm);
-  const effectiveOutNm = out.outDistanceNm + outAutoExtensionNm;
-  const straightClimbBeforeTurnNm = Math.max(0, effectiveOutNm - out.recoveryEndTargetNm);
-  const remainingClimbNm = Math.max(0, out.climbDistanceNm - straightClimbBeforeTurnNm);
-  const climbCrossMinNm = out.inputs.mode === "CLIMB" ? Math.max(0, remainingClimbNm - (Math.PI * outTurnRadiusNm) / 2) : 0;
+  const closure = boxResult.outClosure;
+  const { effectiveOutNm, outAutoExtensionNm, climbCrossMinNm } = closure;
   const downwindNm = effectiveOutNm + outTurnRadiusNm - crossTurnRadiusNm;
 
   const oa1 = toAttack(semantic.stations.rollInStart, "rollInStart");
@@ -108,8 +108,9 @@ export function buildBoxPatternGeometryV0_2(boxResult) {
   if (!(baseTurnRadiusNm > 0)) errors.push("Base Turn Radius must be greater than 0.");
   if (!(crossTurnRadiusNm > 0)) errors.push("Crosswind Turn Radius must be greater than 0.");
   if (abeamExtensionNm < -EPS_NM) errors.push("Abeam Extension Distance must be 0 or greater (Base Turn Radius exceeds Base Distance).");
-  const minCrossLegNm = Math.max(0, baseTurnRadiusNm - crossTurnRadiusNm, climbCrossMinNm);
-  if (crossLegNm + EPS_NM < minCrossLegNm) errors.push(`Crosswind Leg Extension is below minimum. Required >= ${minCrossLegNm.toFixed(1)} NM.`);
+  // A USER Crosswind Leg below the minimum is kept and reported; DEFAULT was raised by the composition.
+  const minCrossLegNm = boxResult.crossLeg.minimumNm;
+  if (crossLegNm + EPS_NM < minCrossLegNm) errors.push(`Crosswind Leg Extension is below minimum. Required >= ${formatMinimumNm(minCrossLegNm)} NM.`);
   if (widthNm + EPS_NM < outTurnRadiusNm + baseTurnRadiusNm) errors.push("Pattern Width must be >= Roll-in Long. D + Base Turn Radius.");
   if (baseLegNm < -EPS_NM) errors.push("Base Leg is negative; the Base Turn cannot connect to the Roll-in.");
 
@@ -137,6 +138,8 @@ export function buildBoxPatternGeometryV0_2(boxResult) {
       effectiveOutNm,
       outAutoExtensionNm,
       climbCrossMinNm,
+      crossLegMinimumNm: minCrossLegNm,
+      crossLegAutoExtended: boxResult.crossLeg.autoExtended,
       downwindNm,
       downwindTimeSec: legTimeSec(downwindNm),
       baseLegTimeSec: legTimeSec(baseLegNm),

@@ -76,7 +76,16 @@ const NUMERIC_FIELDS = Object.freeze([
 const BOX_NUMERIC_FIELDS = Object.freeze([
   "baseTurnG",
   "crossTurnG",
-  "crossLegExtensionNm",
+]);
+
+// Rev1.5 OUT inputs (BOX SPEC "OUT Maneuver — Rev1.5 port"). Until the user edits a field it follows
+// its Rev1.5 default, which the BOX BE resolves; Reset returns every field to its default.
+const OUT_INPUT_FIELDS = Object.freeze([
+  ["outSpeedKcas", "outSpeedKcas", formatKt],
+  ["outRecoveryG", "recoveryG", formatG],
+  ["outClimbPitchDeg", "climbPitchDeg", formatDeg],
+  ["outClimbG", "climbG", formatG],
+  ["outLevelOffSpeedKcas", "levelOffSpeedKcas", formatKt],
 ]);
 
 // Display precision (docs/TERMINOLOGY.md): NM 1 decimal; s, ft, kt and angles integer; G 1 decimal.
@@ -146,8 +155,47 @@ function readPlannerInput() {
   return readForm(form, NUMERIC_FIELDS);
 }
 
+// A default-linked field counts as the user's value once edited; an emptied or invalid edited field
+// returns to its default.
+function userValue(field) {
+  const value = Number(field.value);
+  if (field.dataset.custom === "true" && field.value.trim() !== "" && Number.isFinite(value)) return value;
+  delete field.dataset.custom;
+  return null;
+}
+
 function readBoxInput() {
-  return readForm(boxForm, BOX_NUMERIC_FIELDS);
+  const { baseTurnG, crossTurnG } = readForm(boxForm, BOX_NUMERIC_FIELDS);
+  // Crosswind Leg Extension: the tool default is raised to the Rev1.5 minimum by the BOX BE; a value
+  // the user entered is kept (BOX SPEC "Crosswind Leg minimum").
+  const crossLegField = boxForm.elements.crossLegExtensionNm;
+  const userCrossLeg = userValue(crossLegField);
+  const out = { outMode: boxForm.elements.outMode.value };
+  for (const [name] of OUT_INPUT_FIELDS) {
+    const value = userValue(boxForm.elements[name]);
+    if (value !== null) out[name] = value;
+  }
+  return {
+    baseTurnG,
+    crossTurnG,
+    crossLegExtensionNm: userCrossLeg ?? Number(crossLegField.defaultValue),
+    crossLegExtensionSource: userCrossLeg === null ? "DEFAULT" : "USER",
+    out,
+  };
+}
+
+// Default-linked fields show the value the BOX BE used: the resolved Rev1.5 OUT defaults and the
+// (possibly raised) default Crosswind Leg. Edited fields and the field being typed in are left alone.
+function syncBoxDefaultFields(result) {
+  const show = (field, text) => {
+    if (field.dataset.custom !== "true" && field !== document.activeElement) field.value = text;
+  };
+  for (const [name, key, format] of OUT_INPUT_FIELDS) show(boxForm.elements[name], format(result.out.inputs[key]));
+  show(boxForm.elements.crossLegExtensionNm, formatNm(result.crossLeg.effectiveNm));
+}
+
+function clearBoxCustomFlags() {
+  for (const field of boxForm.querySelectorAll("[data-default-linked]")) delete field.dataset.custom;
 }
 
 function formatValue(value, format) {
@@ -206,8 +254,9 @@ function clearBoxResults() {
 
 // BOX #1 Top View / Z-Diagram: BOX-owned views over the BOX v0.2 result (common/diagram/SPEC.md F1-F4).
 function renderBoxDiagrams(result) {
-  renderBoxTopView(boxTopView, result);
+  const top = renderBoxTopView(boxTopView, result);
   renderBoxZDiagram(boxZ, result);
+  return top.geometry.validation;
 }
 
 // Roll-in Top View: the BDP-owned view draws everything inside the svg (common/diagram/SPEC.md F1-F4);
@@ -244,15 +293,22 @@ function calculateBox(plannerInput) {
     ...boxInput,
   });
   renderBoxResults(result);
-  renderBoxDiagrams(result);
+  const validation = renderBoxDiagrams(result);
+  syncBoxDefaultFields(result);
   const plannerAngle = Number(plannerInput.angleOffDeg);
   const angleNote = plannerAngle === result.fixedAngleOffDeg
     ? ""
     : ` · planner display ${formatValue(plannerAngle, formatDeg)}°, BOX source fixed ${formatDeg(result.fixedAngleOffDeg)}°`;
+  const crossLegNote = result.crossLeg.autoExtended
+    ? ` · Crosswind Leg Extension raised to the climb minimum ${formatNm(result.crossLeg.effectiveNm)} NM (default)`
+    : "";
+  // BOX geometry errors (Rev1.5 GEOMETRY ERROR) keep the drawing and name the cause.
   setStatus(
     boxStatus,
-    `${result.model.id} · BDP ${result.bombDelivery.model.id}${angleNote}`,
-    "ok",
+    validation.valid
+      ? `${result.model.id} · BDP ${result.bombDelivery.model.id}${angleNote}${crossLegNote}`
+      : `GEOMETRY ERROR · ${validation.errors.join(" ")}`,
+    validation.valid ? "ok" : "error",
   );
   return result;
 }
@@ -288,9 +344,15 @@ boxForm.addEventListener("submit", (event) => {
   }
 });
 
+// Editing a default-linked BOX field makes it the user's value.
+boxForm.addEventListener("input", (event) => {
+  if (event.target.matches("[data-default-linked]")) event.target.dataset.custom = "true";
+});
+
 resetButton.addEventListener("click", () => {
   form.reset();
   boxForm.reset();
+  clearBoxCustomFlags();
   calculateAndRender();
 });
 

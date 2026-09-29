@@ -1,12 +1,14 @@
 import { calculateBombDeliveryV0_3Full as calculateBombDelivery } from "../bomb-delivery-planner/bomb-delivery-planner-v0.3.mjs";
 import { calculateBoxGeometryV0_2Full } from "./box-adapter-v0.2.mjs";
-import { calculateBoxOutManeuverV0_1Full } from "./box-out-maneuver-v0.1.mjs";
+import { calculateBoxOutClosureV0_1, calculateBoxOutManeuverV0_1Full } from "./box-out-maneuver-v0.1.mjs";
 import { truncateBeOutput } from "../../../common/ui/display-precision-v0.1.mjs";
 
 export const BOX_V2_COMPOSITION_MODEL_V0_2 = Object.freeze({
   id: "box-v2-composition-v0.2",
   // 0.2.1 (2026-09-29): Roll-in Long. D transfer (Pattern Width) and the Rev1.5 OUT (`out`).
-  version: "0.2.1",
+  // 0.2.2 (2026-09-29): Crosswind Leg Extension source DEFAULT / USER with the Rev1.5 minimum
+  // (`outClosure`, `crossLeg`).
+  version: "0.2.2",
   status: "Work / Pure Composition / Not Official",
   bombDeliverySource: "bomb-delivery-planner-v0.3-js-facade",
   geometrySource: "box-adapter-v0.2 Base Distance Abeam geometry",
@@ -20,6 +22,11 @@ function finite(name, value) {
   }
   return value;
 }
+
+// Crosswind Leg Extension source (2026-09-29): DEFAULT (the tool default, or after Default) is raised
+// to the Rev1.5 minimum; USER (a value the user entered) is kept, and a value below the minimum is a
+// geometry error that names the minimum.
+const CROSS_LEG_SOURCES = Object.freeze(["USER", "DEFAULT"]);
 
 function round1(value) {
   return Math.round(value * 10) / 10;
@@ -76,6 +83,7 @@ export function calculateBoxPatternV0_2Full({
   baseTurnG,
   crossTurnG,
   crossLegExtensionNm,
+  crossLegExtensionSource = "USER",
   out: outOptions = {},
 }) {
   if (!bombDeliveryInput || typeof bombDeliveryInput !== "object") {
@@ -84,23 +92,47 @@ export function calculateBoxPatternV0_2Full({
   finite("baseTurnG", baseTurnG);
   finite("crossTurnG", crossTurnG);
   finite("crossLegExtensionNm", crossLegExtensionNm);
+  if (!CROSS_LEG_SOURCES.includes(crossLegExtensionSource)) {
+    throw new RangeError("crossLegExtensionSource must be USER or DEFAULT");
+  }
 
   const bombDelivery = calculateBombDelivery({
     ...bombDeliveryInput,
     angleOffDeg: BOX_V2_COMPOSITION_MODEL_V0_2.fixedAngleOffDeg,
   });
   const profileSource = adaptBombDeliveryResultToBoxFieldsV0_2(bombDelivery);
-  const pattern = calculateBoxGeometryV0_2Full({
+  const geometryFor = (crossLegNm) => calculateBoxGeometryV0_2Full({
     profileSource,
     baseTurnG,
     crossTurnG,
-    crossLegExtensionNm,
+    crossLegExtensionNm: crossLegNm,
   });
+  const requestedPattern = geometryFor(crossLegExtensionNm);
   // Rev1.5 OUT; its turn mirrors the Roll-in side of the pattern (OUT Turn radius = Roll-in Long. D).
   const out = calculateBoxOutManeuverV0_1Full(bombDelivery, {
     ...outOptions,
     outTurnRadiusNm: profileSource.rollInLongitudinalDistanceNm,
   });
+  // The OUT closure and the Crosswind Leg minimum depend on the turn radii, not on the Crosswind Leg.
+  const outClosure = calculateBoxOutClosureV0_1({
+    out,
+    outTurnRadiusNm: profileSource.rollInLongitudinalDistanceNm,
+    crossTurnRadiusNm: requestedPattern.crossRadiusNm,
+    baseTurnRadiusNm: requestedPattern.baseRadiusNm,
+  });
+  const minimumNm = outClosure.crossLegMinimumNm;
+  // Rev1.5 raises a non-custom Crosswind Leg only when it is short by more than 0.5 m.
+  const autoExtended = crossLegExtensionSource === "DEFAULT" && crossLegExtensionNm * 1852 + 0.5 < minimumNm * 1852;
+  const effectiveNm = autoExtended ? minimumNm : crossLegExtensionNm;
+  const pattern = autoExtended ? geometryFor(effectiveNm) : requestedPattern;
+  const crossLeg = {
+    source: crossLegExtensionSource,
+    requestedNm: crossLegExtensionNm,
+    minimumNm,
+    effectiveNm,
+    autoExtended,
+    belowMinimum: effectiveNm * 1852 + 0.5 < minimumNm * 1852,
+  };
 
   return {
     model: { ...BOX_V2_COMPOSITION_MODEL_V0_2 },
@@ -109,5 +141,7 @@ export function calculateBoxPatternV0_2Full({
     profileSource,
     pattern,
     out,
+    outClosure,
+    crossLeg,
   };
 }

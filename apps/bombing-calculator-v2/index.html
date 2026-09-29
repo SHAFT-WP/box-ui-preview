@@ -167,12 +167,45 @@
         </label>
 
         <label>Crosswind Leg Extension (NM)
-          <input name="crossLegExtensionNm" type="number" value="2" min="0" step="0.1">
+          <input name="crossLegExtensionNm" type="number" value="2" min="0" step="0.1" data-default-linked>
         </label>
 
         <label>BOX Angle Off
           <input value="90" type="number" disabled aria-label="BOX fixed Angle Off 90 degrees">
         </label>
+
+        <p class="form-note">Crosswind Leg Extension: 기본값(또는 Reset)은 상승을 끝낼 수 있는 최소 길이까지 자동으로 늘어납니다. 직접 입력한 값은 그대로 두고, 최소값보다 짧으면 필요한 최소 길이와 오류를 표시합니다.</p>
+
+        <p class="form-group-title">OUT Maneuver</p>
+
+        <label>OUT Mode
+          <select name="outMode">
+            <option value="CLIMB" selected>CLIMB</option>
+            <option value="LEVEL">LEVEL</option>
+          </select>
+        </label>
+
+        <label>OUT Speed (KCAS)
+          <input name="outSpeedKcas" type="number" step="1" data-default-linked>
+        </label>
+
+        <label>Recovery G (G)
+          <input name="outRecoveryG" type="number" step="0.1" min="1.1" data-default-linked>
+        </label>
+
+        <label>Climb Pitch (°)
+          <input name="outClimbPitchDeg" type="number" step="1" min="0" data-default-linked>
+        </label>
+
+        <label>Climb G (G)
+          <input name="outClimbG" type="number" step="0.1" min="1.1" data-default-linked>
+        </label>
+
+        <label>Level-off Speed (KCAS)
+          <input name="outLevelOffSpeedKcas" type="number" step="1" min="1" data-default-linked>
+        </label>
+
+        <p class="form-note">Rev1.5 OUT: Recovery는 Release 지점부터 조작 지연 + 0° pitch까지의 constant-G pull-up 원호 근사. CLIMB는 0°→Climb Pitch 전환(Climb G) + Initial 고도까지의 일정 pitch 상승으로 계산. 직접 입력하지 않은 칸은 Rev1.5 기본값을 따릅니다: OUT Speed = Release Speed, Recovery G 5.0, Climb Pitch = Dive Angle − 10°(최소 0°), Climb G = Recovery G / 2, Level-off Speed = Initial KCAS.</p>
 
         <div class="form-actions">
           <button type="submit">Calculate BOX</button>

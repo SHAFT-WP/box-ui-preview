@@ -29,7 +29,8 @@ import { BOX_TOP_VIEW_LEGEND, BOX_VIEW_COLORS as C, boxTopViewTitle } from "./bo
 
 export const BOX_TOP_VIEW_V0_4 = Object.freeze({
   id: "box-top-view-v0.4",
-  version: "0.4.0",
+  // 0.4.1 (2026-09-29): OUT annotation reads the Rev1.5 input name Climb Pitch.
+  version: "0.4.1",
   owner: "AG/bombing/box-pattern/SPEC.md",
   subject: "BOX",
   view: "Top View",
@@ -228,7 +229,7 @@ export function renderBoxTopView(svg, boxResult, options = {}) {
   label(P.oa1, "Roll-in", { labelKey: "roll-in", color: C.rollText, fontSize: stationSize, candidates: stationCandidates(["below", "downRight", "downLeft"]) });
   label(P.abeam, "Abeam", { labelKey: "abeam", color: C.downwindText, fontSize: stationSize, candidates: stationCandidates(["upRight", "right", "downRight"]) });
   const outDetail = out.inputs.mode === "CLIMB"
-    ? `${formatG(out.inputs.recoveryG)} G · Level · Climb Angle ${formatDeg(out.inputs.climbAngleDeg)}°`
+    ? `${formatG(out.inputs.recoveryG)} G · Level · Climb Angle ${formatDeg(out.inputs.climbPitchDeg)}°`
     : `${formatG(out.inputs.recoveryG)} G · Level`;
   // Anchored toward the OUT Turn Start, clear of the Target abeam line that crosses the OUT run.
   const outAnchor = { x: P.release.x + (P.outTurnStart.x - P.release.x) * 0.7, y: P.release.y + (P.outTurnStart.y - P.release.y) * 0.7 };

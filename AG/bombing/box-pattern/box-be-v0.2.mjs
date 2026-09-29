@@ -17,6 +17,7 @@ export {
 // Rev1.5 OUT (Recovery + CLIMB) in V2 until OUT moves to the CLIMB SEM / CSEM boundary (2026-09-29).
 export {
   BOX_OUT_MANEUVER_MODEL_V0_1,
+  calculateBoxOutClosureV0_1,
   calculateBoxOutManeuverV0_1,
   calculateBoxOutManeuverV0_1Full,
   resolveBoxOutInputsV0_1,
@@ -40,7 +41,8 @@ export {
 export const BOX_BE_ENTRYPOINT_V0_2 = Object.freeze({
   status: "Work / Pure Calculation / Not Official",
   // 0.2.2 (2026-09-29): Rev1.5 OUT exports; the composition result carries `out`.
-  entrypointVersion: "0.2.2",
+  // 0.2.3 (2026-09-29): OUT closure export; Crosswind Leg source DEFAULT / USER (`crossLeg`).
+  entrypointVersion: "0.2.3",
   fixedAngleOffDeg: 90,
   canonicalBaseDistanceKey: "baseDistanceNm",
   canonicalAbeamDistanceKey: "abeamExtensionDistanceNm",

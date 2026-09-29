@@ -183,6 +183,19 @@ button.secondary {
   font-weight: 800;
 }
 
+.form-group-title {
+  grid-column: 1 / -1;
+  margin: 8px 0 0;
+  font-weight: 800;
+}
+
+.form-note {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #677381;
+  font-size: 13px;
+}
+
 /* Diagram containers only: every stroke, fill and label inside a view is set by the BE-owned view
    module (common/diagram/SPEC.md F2). */
 .diagram-svg,
