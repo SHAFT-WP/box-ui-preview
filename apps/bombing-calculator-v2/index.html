@@ -137,10 +137,14 @@
 
       <article class="panel">
         <div class="section-heading">
-          <h2>Semantic Top View</h2>
-          <p>BE semantic state → SVG projection. 화면 좌표는 계산에 재사용하지 않습니다.</p>
+          <div>
+            <h2 id="topViewTitle">Roll-in Top View</h2>
+            <p>BDP-owned view · BDP FE와 같은 형식입니다. BE 좌표를 화면에 투영만 하며 계산에 재사용하지 않습니다.</p>
+          </div>
+          <button type="button" id="topViewPng" class="secondary">PNG</button>
         </div>
-        <svg id="topView" viewBox="0 0 720 520" aria-label="Bomb delivery semantic top view"></svg>
+        <svg id="topView" class="diagram-svg" data-export-legend="topViewLegend" viewBox="0 0 900 700" role="img" aria-label="Roll-in Top View"></svg>
+        <svg id="topViewLegend" class="diagram-legend" role="img" aria-label="Roll-in Top View legend"></svg>
       </article>
     </section>
 
@@ -196,6 +200,31 @@
           <table class="result-table">
             <tbody id="boxResultBody"></tbody>
           </table>
+        </article>
+      </div>
+
+      <div class="workspace-grid box-results-grid">
+        <article>
+          <div class="section-heading">
+            <div>
+              <h2 id="boxTopViewTitle">BOX #1 Top View</h2>
+              <p>BOX-owned view · Downwind → Abeam → OA2 → Base Turn → Base Leg → OA1 → Target. OUT·Crosswind 구간은 BOX 결과에 포함되면 추가됩니다.</p>
+            </div>
+            <button type="button" id="boxTopViewPng" class="secondary">PNG</button>
+          </div>
+          <svg id="boxTopView" class="diagram-svg" data-export-legend="boxTopViewLegend" viewBox="0 0 900 700" role="img" aria-label="BOX #1 Top View"></svg>
+          <svg id="boxTopViewLegend" class="diagram-legend" role="img" aria-label="BOX #1 Top View legend"></svg>
+        </article>
+
+        <article>
+          <div class="section-heading">
+            <div>
+              <h2 id="boxZTitle">BOX #1 Z-Diagram</h2>
+              <p>BOX의 BDP 계산(Angle-Off 90°) Z-Diagram + BOX 행</p>
+            </div>
+            <button type="button" id="boxZPng" class="secondary">PNG</button>
+          </div>
+          <svg id="boxZ" class="diagram-svg" viewBox="0 0 650 680" role="img" aria-label="BOX #1 Z-Diagram"></svg>
         </article>
       </div>
     </section>

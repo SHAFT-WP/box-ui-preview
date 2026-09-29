@@ -183,46 +183,27 @@ button.secondary {
   font-weight: 800;
 }
 
-#topView {
+/* Diagram containers only: every stroke, fill and label inside a view is set by the BE-owned view
+   module (common/diagram/SPEC.md F2). */
+.diagram-svg,
+.diagram-legend {
+  display: block;
   width: 100%;
-  min-height: 480px;
+  height: auto;
+}
+
+.diagram-svg {
   border: 1px solid #edf0f2;
   border-radius: 12px;
-  background: #fbfcfd;
+  background: #fff;
 }
 
-.plot-frame {
-  fill: transparent;
-  stroke: #dfe4e9;
-  stroke-width: 1;
+.diagram-svg:has(+ .diagram-legend) {
+  border-radius: 12px 12px 0 0;
 }
 
-.path-rollin,
-.path-tracking,
-.path-bomb {
-  stroke-width: 3;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.path-rollin { stroke: #1e5a91; }
-.path-tracking { stroke: #2a7d4f; stroke-dasharray: 8 6; }
-.path-bomb { stroke: #aa5229; stroke-dasharray: 4 5; }
-
-.station circle {
-  fill: #fff;
-  stroke: #17202a;
-  stroke-width: 2;
-}
-
-.station text {
-  fill: #17202a;
-  font-size: 12px;
-  font-weight: 800;
-  paint-order: stroke;
-  stroke: #fff;
-  stroke-width: 4px;
-  stroke-linejoin: round;
+.diagram-legend {
+  border-radius: 0 0 12px 12px;
 }
 
 @media (max-width: 1100px) {
@@ -238,5 +219,4 @@ button.secondary {
   .form-grid { grid-template-columns: 1fr; }
   .form-actions { flex-direction: column; }
   .panel { padding: 14px; border-radius: 12px; }
-  #topView { min-height: 360px; }
 }

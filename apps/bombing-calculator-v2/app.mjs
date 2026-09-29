@@ -15,11 +15,27 @@ import {
   formatNm,
   formatSec,
 } from "../../common/ui/display-precision-v0.1.mjs";
+import {
+  BDP_TOP_VIEW_V0_2,
+  bdpTopViewTitle,
+  renderBdpTopView,
+} from "../../AG/bombing/bomb-delivery-planner/view/bdp-top-view-v0.2.mjs";
+import {
+  BOX_TOP_VIEW_V0_3,
+  boxTopViewTitle,
+  renderBoxTopView,
+} from "../../AG/bombing/box-pattern/view/box-top-view-v0.3.mjs";
+import { boxZDiagramTitle, renderBoxZDiagram } from "../../AG/bombing/box-pattern/view/box-z-diagram-v0.2.mjs";
+import { installSvgLegend } from "../../common/diagram/svg-legend-v0.1.mjs";
+import { saveSvgAsPng } from "../../common/diagram/svg-png-export-v0.1.mjs";
 
 const form = document.querySelector("#plannerForm");
 const resultBody = document.querySelector("#resultBody");
 const status = document.querySelector("#status");
 const topView = document.querySelector("#topView");
+const topViewTitle = document.querySelector("#topViewTitle");
+const topViewLegend = document.querySelector("#topViewLegend");
+const topViewPng = document.querySelector("#topViewPng");
 const resetButton = document.querySelector("#resetButton");
 const modelBadge = document.querySelector("#modelBadge");
 
@@ -28,6 +44,13 @@ const boxStatus = document.querySelector("#boxStatus");
 const boxSourceBody = document.querySelector("#boxSourceBody");
 const boxResultBody = document.querySelector("#boxResultBody");
 const boxModelBadge = document.querySelector("#boxModelBadge");
+const boxTopView = document.querySelector("#boxTopView");
+const boxTopViewHeading = document.querySelector("#boxTopViewTitle");
+const boxTopViewLegend = document.querySelector("#boxTopViewLegend");
+const boxTopViewPng = document.querySelector("#boxTopViewPng");
+const boxZ = document.querySelector("#boxZ");
+const boxZHeading = document.querySelector("#boxZTitle");
+const boxZPng = document.querySelector("#boxZPng");
 
 const NUMERIC_FIELDS = Object.freeze([
   "targetElevationMslFt",
@@ -103,8 +126,6 @@ const BOX_RESULT_ROWS = Object.freeze([
   ["Base Leg", "baseLegNm", "NM", formatNm],
 ]);
 
-const SVG_NS = "http://www.w3.org/2000/svg";
-
 function readForm(formElement, numericFields) {
   const data = Object.fromEntries(new FormData(formElement).entries());
   for (const field of numericFields) {
@@ -162,107 +183,24 @@ function renderBoxResults(result) {
 function clearBoxResults() {
   boxSourceBody.replaceChildren();
   boxResultBody.replaceChildren();
+  boxTopView.replaceChildren();
+  boxZ.replaceChildren();
 }
 
-function svgElement(name, attributes = {}) {
-  const node = document.createElementNS(SVG_NS, name);
-  for (const [key, value] of Object.entries(attributes)) node.setAttribute(key, String(value));
-  return node;
+// BOX #1 Top View / Z-Diagram: BOX-owned views over the BOX v0.2 result (common/diagram/SPEC.md F1-F4).
+function renderBoxDiagrams(result) {
+  renderBoxTopView(boxTopView, result);
+  renderBoxZDiagram(boxZ, result);
 }
 
-function collectSemanticPoints(semantic) {
-  const stationPoints = Object.values(semantic.stations).filter(Boolean);
-  return [
-    ...stationPoints,
-    ...semantic.paths.rollIn,
-    ...semantic.paths.tracking,
-    ...semantic.paths.bomb,
-  ].filter((point) => Number.isFinite(point.forwardNm) && Number.isFinite(point.turnSideNm));
-}
-
-function buildProjection(points) {
-  const width = 720;
-  const height = 520;
-  const margin = 54;
-  const forwards = points.map((point) => point.forwardNm);
-  const sides = points.map((point) => point.turnSideNm);
-  let minForward = Math.min(...forwards);
-  let maxForward = Math.max(...forwards);
-  let minSide = Math.min(...sides);
-  let maxSide = Math.max(...sides);
-
-  const forwardSpan = Math.max(maxForward - minForward, 0.25);
-  const sideSpan = Math.max(maxSide - minSide, 0.25);
-  minForward -= forwardSpan * 0.08;
-  maxForward += forwardSpan * 0.08;
-  minSide -= sideSpan * 0.12;
-  maxSide += sideSpan * 0.12;
-
-  const scale = Math.min(
-    (width - margin * 2) / (maxForward - minForward),
-    (height - margin * 2) / (maxSide - minSide),
-  );
-
-  const usedWidth = (maxForward - minForward) * scale;
-  const usedHeight = (maxSide - minSide) * scale;
-  const offsetX = (width - usedWidth) / 2;
-  const offsetY = (height - usedHeight) / 2;
-
-  return (point) => ({
-    x: offsetX + (point.forwardNm - minForward) * scale,
-    y: height - (offsetY + (point.turnSideNm - minSide) * scale),
-  });
-}
-
-function pathData(points, project) {
-  return points
-    .map((point, index) => {
-      const screen = project(point);
-      return `${index === 0 ? "M" : "L"} ${screen.x.toFixed(2)} ${screen.y.toFixed(2)}`;
-    })
-    .join(" ");
-}
-
-function addPath(points, project, className) {
-  if (!points || points.length < 2) return;
-  topView.append(svgElement("path", {
-    d: pathData(points, project),
-    class: className,
-    fill: "none",
-  }));
-}
-
-function addStation(name, point, project) {
-  if (!point) return;
-  const screen = project(point);
-  const group = svgElement("g", { class: "station" });
-  group.append(svgElement("circle", { cx: screen.x, cy: screen.y, r: 5 }));
-  const label = svgElement("text", { x: screen.x + 9, y: screen.y - 9 });
-  label.textContent = name;
-  group.append(label);
-  topView.append(group);
-}
-
+// Roll-in Top View: the BDP-owned view draws everything inside the svg (common/diagram/SPEC.md F1-F4);
+// the shell supplies the empty svg, the title, the legend and the PNG button.
 function renderTopView(result) {
-  const semantic = result.visualization.semanticState;
-  const points = collectSemanticPoints(semantic);
-  topView.replaceChildren();
+  renderBdpTopView(topView, result);
+}
 
-  if (!points.length) return;
-  const project = buildProjection(points);
-
-  const grid = svgElement("rect", { x: 1, y: 1, width: 718, height: 518, class: "plot-frame" });
-  topView.append(grid);
-
-  addPath(semantic.paths.rollIn, project, "path-rollin");
-  addPath(semantic.paths.tracking, project, "path-tracking");
-  addPath(semantic.paths.bomb, project, "path-bomb");
-
-  addStation("Roll-in Start", semantic.stations.rollInStart, project);
-  addStation("Track Point", semantic.stations.trackPoint, project);
-  addStation("Release", semantic.stations.release, project);
-  addStation("Target", semantic.stations.target, project);
-  if (semantic.stations.aimOffPoint) addStation("Aim-off", semantic.stations.aimOffPoint, project);
+function pngFileName(title) {
+  return `${title.replaceAll(" ", "_")}.png`;
 }
 
 function setStatus(element, message, kind = "ok") {
@@ -289,6 +227,7 @@ function calculateBox(plannerInput) {
     ...boxInput,
   });
   renderBoxResults(result);
+  renderBoxDiagrams(result);
   const plannerAngle = Number(plannerInput.angleOffDeg);
   const angleNote = plannerAngle === result.fixedAngleOffDeg
     ? ""
@@ -337,6 +276,18 @@ resetButton.addEventListener("click", () => {
   boxForm.reset();
   calculateAndRender();
 });
+
+topViewTitle.textContent = bdpTopViewTitle();
+topView.setAttribute("aria-label", bdpTopViewTitle());
+installSvgLegend(topViewLegend, BDP_TOP_VIEW_V0_2.legend);
+topViewPng.addEventListener("click", () => saveSvgAsPng(topView, pngFileName(bdpTopViewTitle())));
+boxTopViewHeading.textContent = boxTopViewTitle();
+boxTopView.setAttribute("aria-label", boxTopViewTitle());
+installSvgLegend(boxTopViewLegend, BOX_TOP_VIEW_V0_3.legend);
+boxTopViewPng.addEventListener("click", () => saveSvgAsPng(boxTopView, pngFileName(boxTopViewTitle())));
+boxZHeading.textContent = boxZDiagramTitle();
+boxZ.setAttribute("aria-label", boxZDiagramTitle());
+boxZPng.addEventListener("click", () => saveSvgAsPng(boxZ, pngFileName(boxZDiagramTitle())));
 
 modelBadge.textContent = `${BOMB_DELIVERY_PLANNER_MODEL_V0_3.id} · ${BOMB_DELIVERY_PLANNER_MODEL_V0_3.version}`;
 boxModelBadge.textContent = `${BOX_BE_ENTRYPOINT_V0_2.officialRevision} oracle · ${BOX_V2_COMPOSITION_MODEL_V0_2.id}`;
