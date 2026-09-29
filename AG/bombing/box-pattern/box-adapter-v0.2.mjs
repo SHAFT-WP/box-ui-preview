@@ -9,7 +9,7 @@ const LEGACY_KT_TO_MPS = 0.514444;
 
 export const BOX_ADAPTER_MODEL_V0_2 = Object.freeze({
   id: "box-adapter-v0.2-base-distance-abeam-extension",
-  version: "0.2.0",
+  version: "0.2.1",
   status: "Work / Pure Calculation / Not Official",
 });
 
@@ -103,8 +103,13 @@ export function calculateBoxGeometryV0_2Full({
     (abeamExtensionDistanceNm * LEGACY_NM_M) / speedMps;
   const crossLegTimeSec =
     (crossLegExtensionNm * LEGACY_NM_M) / speedMps;
-  const patternWidthNm =
-    profileSource.rollInRadiusRoundedNm + crossLegExtensionNm + cross.turnRadiusNm;
+  // Pattern Width (2026-09-29): the Roll-in side of the pattern is the actual Roll-in Long. D (OA1 →
+  // attack line) when the current-result adapter transfers it; the legacy-input bridge (BDP v0.1)
+  // has no such field and keeps the Rev1.5 rounded Radius (EFF). Base Leg does not depend on it.
+  const rollInSideNm = Number.isFinite(profileSource.rollInLongitudinalDistanceNm)
+    ? profileSource.rollInLongitudinalDistanceNm
+    : profileSource.rollInRadiusRoundedNm;
+  const patternWidthNm = rollInSideNm + crossLegExtensionNm + cross.turnRadiusNm;
   const baseLegNm = crossLegExtensionNm + cross.turnRadiusNm - base.turnRadiusNm;
 
   return {

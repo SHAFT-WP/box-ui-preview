@@ -1,13 +1,16 @@
 import { calculateBombDeliveryV0_3Full as calculateBombDelivery } from "../bomb-delivery-planner/bomb-delivery-planner-v0.3.mjs";
 import { calculateBoxGeometryV0_2Full } from "./box-adapter-v0.2.mjs";
+import { calculateBoxOutManeuverV0_1Full } from "./box-out-maneuver-v0.1.mjs";
 import { truncateBeOutput } from "../../../common/ui/display-precision-v0.1.mjs";
 
 export const BOX_V2_COMPOSITION_MODEL_V0_2 = Object.freeze({
   id: "box-v2-composition-v0.2",
-  version: "0.2.0",
+  // 0.2.1 (2026-09-29): Roll-in Long. D transfer (Pattern Width) and the Rev1.5 OUT (`out`).
+  version: "0.2.1",
   status: "Work / Pure Composition / Not Official",
   bombDeliverySource: "bomb-delivery-planner-v0.3-js-facade",
   geometrySource: "box-adapter-v0.2 Base Distance Abeam geometry",
+  outSource: "box-out-maneuver-v0.1 (Rev1.5 OUT)",
   fixedAngleOffDeg: 90,
 });
 
@@ -25,7 +28,8 @@ function round1(value) {
 /**
  * Canonical BOX adapter for a current Bomb Delivery Planner result.
  *
- * Transfers canonical BDP Base Distance at full precision.
+ * Transfers canonical BDP Base Distance and the Roll-in Long. D (the OA1 → attack-line offset, which
+ * sets Pattern Width and the OUT Turn radius; 2026-09-29) at full precision.
  */
 export function adaptBombDeliveryResultToBoxFieldsV0_2(result) {
   if (!result || typeof result !== "object") throw new TypeError("result must be an object");
@@ -44,6 +48,10 @@ export function adaptBombDeliveryResultToBoxFieldsV0_2(result) {
   finite("public.rollInRadiusNm", rollInRadiusNm);
   finite("public.rollInRangeNm", rollInRangeNm);
   finite("public.baseDistanceNm", baseDistanceNm);
+  const rollInLongitudinalDistanceNm = finite(
+    "public.rollInDisplacement.forwardNm",
+    result.public.rollInDisplacement?.forwardNm,
+  );
 
   return {
     initialTasRoundedKt: round1(initialTasKt),
@@ -51,6 +59,7 @@ export function adaptBombDeliveryResultToBoxFieldsV0_2(result) {
     rollInRadiusRoundedNm: round1(rollInRadiusNm),
     rollInRangeRoundedNm: round1(rollInRangeNm),
     baseDistanceNm,
+    rollInLongitudinalDistanceNm,
     rollInTrajectorySamples: result.visualization?.rollInTrajectorySamples ?? [],
     profile: result,
   };
@@ -67,6 +76,7 @@ export function calculateBoxPatternV0_2Full({
   baseTurnG,
   crossTurnG,
   crossLegExtensionNm,
+  out: outOptions = {},
 }) {
   if (!bombDeliveryInput || typeof bombDeliveryInput !== "object") {
     throw new TypeError("bombDeliveryInput must be an object");
@@ -86,6 +96,11 @@ export function calculateBoxPatternV0_2Full({
     crossTurnG,
     crossLegExtensionNm,
   });
+  // Rev1.5 OUT; its turn mirrors the Roll-in side of the pattern (OUT Turn radius = Roll-in Long. D).
+  const out = calculateBoxOutManeuverV0_1Full(bombDelivery, {
+    ...outOptions,
+    outTurnRadiusNm: profileSource.rollInLongitudinalDistanceNm,
+  });
 
   return {
     model: { ...BOX_V2_COMPOSITION_MODEL_V0_2 },
@@ -93,5 +108,6 @@ export function calculateBoxPatternV0_2Full({
     bombDelivery,
     profileSource,
     pattern,
+    out,
   };
 }

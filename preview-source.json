@@ -1,5 +1,5 @@
 {
-  "sourceCommit": "e29a23e43d78aab123e6471ad4f723089a334938",
+  "sourceCommit": "8acec7e44c5c42124e26a3ff226118c11034550c",
   "tool": "box",
   "files": [
     "AG/bombing/bomb-delivery-planner/ballistics-v0.1.mjs",
@@ -37,8 +37,9 @@
     "common/diagram/svg-primitives-v0.1.mjs",
     "common/diagram/svg-smart-label-v0.1.mjs",
     "common/diagram/svg-viewport-v0.1.mjs",
-    "AG/bombing/box-pattern/box-pattern-geometry-v0.1.mjs",
-    "AG/bombing/box-pattern/view/box-top-view-v0.3.mjs",
+    "AG/bombing/box-pattern/box-pattern-geometry-v0.2.mjs",
+    "AG/bombing/box-pattern/box-out-maneuver-v0.1.mjs",
+    "AG/bombing/box-pattern/view/box-top-view-v0.4.mjs",
     "AG/bombing/box-pattern/view/box-view-style-v0.1.mjs",
     "AG/bombing/box-pattern/view/box-z-diagram-v0.2.mjs",
     "AG/bombing/bomb-delivery-planner/view/bdp-top-view-v0.2.mjs",

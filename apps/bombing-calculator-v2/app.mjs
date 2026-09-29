@@ -21,10 +21,10 @@ import {
   renderBdpTopView,
 } from "../../AG/bombing/bomb-delivery-planner/view/bdp-top-view-v0.2.mjs";
 import {
-  BOX_TOP_VIEW_V0_3,
+  BOX_TOP_VIEW_V0_4,
   boxTopViewTitle,
   renderBoxTopView,
-} from "../../AG/bombing/box-pattern/view/box-top-view-v0.3.mjs";
+} from "../../AG/bombing/box-pattern/view/box-top-view-v0.4.mjs";
 import { boxZDiagramTitle, renderBoxZDiagram } from "../../AG/bombing/box-pattern/view/box-z-diagram-v0.2.mjs";
 import { installSvgLegend } from "../../common/diagram/svg-legend-v0.1.mjs";
 import { saveSvgAsPng } from "../../common/diagram/svg-png-export-v0.1.mjs";
@@ -124,6 +124,12 @@ const BOX_RESULT_ROWS = Object.freeze([
   ["Crosswind Leg Time", "crossLegTimeSec", "s", formatSec],
   ["Pattern Width", "patternWidthNm", "NM", formatNm],
   ["Base Leg", "baseLegNm", "NM", formatNm],
+  // Rev1.5 OUT Maneuver (BOX `out`, Rev1.5 defaults).
+  ["OUT Level-off Altitude", "outLevelOffAltitudeMslFt", "ft MSL", formatFt],
+  ["OUT Recovery Distance", "outRecoveryDistanceNm", "NM", formatNm],
+  ["OUT Climb Distance", "outClimbDistanceNm", "NM", formatNm],
+  ["OUT Turn Bank", "outTurnBankDeg", "°", formatDeg],
+  ["OUT Horizontal Path", "outHorizontalPathNm", "NM", formatNm],
 ]);
 
 function readForm(formElement, numericFields) {
@@ -177,7 +183,18 @@ function renderBoxResults(result) {
     },
     BOX_SOURCE_ROWS,
   );
-  renderRows(boxResultBody, result.pattern, BOX_RESULT_ROWS);
+  renderRows(
+    boxResultBody,
+    {
+      ...result.pattern,
+      outLevelOffAltitudeMslFt: result.out.levelOffAltitudeMslFt,
+      outRecoveryDistanceNm: result.out.recoveryDistanceNm,
+      outClimbDistanceNm: result.out.climbDistanceNm,
+      outTurnBankDeg: result.out.outTurnBankDeg,
+      outHorizontalPathNm: result.out.totalHorizontalNm,
+    },
+    BOX_RESULT_ROWS,
+  );
 }
 
 function clearBoxResults() {
@@ -283,7 +300,7 @@ installSvgLegend(topViewLegend, BDP_TOP_VIEW_V0_2.legend);
 topViewPng.addEventListener("click", () => saveSvgAsPng(topView, pngFileName(bdpTopViewTitle())));
 boxTopViewHeading.textContent = boxTopViewTitle();
 boxTopView.setAttribute("aria-label", boxTopViewTitle());
-installSvgLegend(boxTopViewLegend, BOX_TOP_VIEW_V0_3.legend);
+installSvgLegend(boxTopViewLegend, BOX_TOP_VIEW_V0_4.legend);
 boxTopViewPng.addEventListener("click", () => saveSvgAsPng(boxTopView, pngFileName(boxTopViewTitle())));
 boxZHeading.textContent = boxZDiagramTitle();
 boxZ.setAttribute("aria-label", boxZDiagramTitle());

@@ -14,6 +14,14 @@ export {
   calculateBoxPatternV0_2Full,
 } from "./box-v2-composition-v0.2.mjs";
 
+// Rev1.5 OUT (Recovery + CLIMB) in V2 until OUT moves to the CLIMB SEM / CSEM boundary (2026-09-29).
+export {
+  BOX_OUT_MANEUVER_MODEL_V0_1,
+  calculateBoxOutManeuverV0_1,
+  calculateBoxOutManeuverV0_1Full,
+  resolveBoxOutInputsV0_1,
+} from "./box-out-maneuver-v0.1.mjs";
+
 // Preserved compatibility/regression surfaces remain available explicitly.
 export {
   adaptBombDeliveryToLegacyBoxFields,
@@ -31,7 +39,8 @@ export {
 
 export const BOX_BE_ENTRYPOINT_V0_2 = Object.freeze({
   status: "Work / Pure Calculation / Not Official",
-  entrypointVersion: "0.2.1",
+  // 0.2.2 (2026-09-29): Rev1.5 OUT exports; the composition result carries `out`.
+  entrypointVersion: "0.2.2",
   fixedAngleOffDeg: 90,
   canonicalBaseDistanceKey: "baseDistanceNm",
   canonicalAbeamDistanceKey: "abeamExtensionDistanceNm",
