@@ -1,5 +1,5 @@
 import { tasToCas } from "../../../../../common/airspeed/airspeed-v0.1.mjs";
-import { calculateWingsLevelRecoveryPull } from "../../../../../common/maneuvers/recovery-pull/recovery-pull-v0.1.mjs";
+import { calculateWingsLevelRecoveryPull, createRecoveryPullSampler } from "../../../../../common/maneuvers/recovery-pull/recovery-pull-v0.1.mjs";
 
 const G_FTPS2 = 32.174;
 const KT_TO_FPS = 1.687809857;
@@ -105,7 +105,7 @@ function integrateStep(state, loadFactor, dt) {
   state.minAltitudeMslFt = Math.min(state.minAltitudeMslFt, state.altitudeMslFt);
 }
 
-function runRelaxation(startState, input, durationSec) {
+function runRelaxation(startState, input, durationSec, onStep = null) {
   const state = { ...startState };
   let localElapsed = 0;
   const terminalEquilibriumG = Math.cos(input.terminalFpaDeg * DEG_TO_RAD);
@@ -115,13 +115,24 @@ function runRelaxation(startState, input, durationSec) {
     const loadFactor = input.recoveryG + (terminalEquilibriumG - input.recoveryG) * fraction;
     integrateStep(state, loadFactor, dt);
     localElapsed += dt;
+    onStep?.(state, loadFactor);
   }
   return state;
+}
+
+// Opt-in path samples (2026-10-13, Offset SEM & Rejoin; SPEC "Output"): `sampleIntervalSec` > 0
+// adds `path.samples`, the integrated wings-level state from Release to the +30 deg termination
+// (Common recovery-pull samples to the relaxation gate, then the final relaxation run). The samples
+// are recorded from the same integration; every other output is unchanged with or without them.
+function validSampleInterval(value) {
+  return value === undefined || (finiteNumber(value) && value > 0 && value <= 10);
 }
 
 export function calculateClimbSemV0_2(rawInput) {
   const input = normalizeInput(rawInput);
   const { errors, warnings } = validateInput(input);
+  const sampleIntervalSec = rawInput?.sampleIntervalSec;
+  if (!validSampleInterval(sampleIntervalSec)) errors.push("SAMPLE_INTERVAL_OUT_OF_RANGE");
   if (errors.length) return invalidResult(input, errors, warnings);
 
   let pull;
@@ -134,6 +145,7 @@ export function calculateClimbSemV0_2(rawInput) {
       recoveryG: input.recoveryG,
       gOnsetTimeSec: input.gOnsetTimeSec,
       maneuverInitiationDelaySec: 0,
+      ...(sampleIntervalSec === undefined ? {} : { sampleIntervalSec }),
     });
   } catch (error) {
     return invalidResult(input, [error.message || String(error)], warnings);
@@ -158,8 +170,18 @@ export function calculateClimbSemV0_2(rawInput) {
     if (runRelaxation(relaxationStart, input, mid).fpaRad < terminalFpaRad) lowDuration = mid;
     else highDuration = mid;
   }
-  const termination = runRelaxation(relaxationStart, input, (lowDuration + highDuration) / 2);
+  let relaxationSampler = null;
+  if (sampleIntervalSec !== undefined) {
+    const firstSampleSec = Math.ceil(relaxationStart.elapsedTimeSec / sampleIntervalSec - 1e-9) * sampleIntervalSec;
+    relaxationSampler = createRecoveryPullSampler(sampleIntervalSec, { firstSampleSec });
+  }
+  const termination = runRelaxation(relaxationStart, input, (lowDuration + highDuration) / 2, relaxationSampler ? (state, loadFactor) => relaxationSampler.record(state, loadFactor) : null);
   termination.fpaRad = terminalFpaRad;
+  if (relaxationSampler) {
+    relaxationSampler.finish(termination, Math.cos(terminalFpaRad));
+    // The termination sample carries the reported terminal FPA (as terminationState.fpaDeg).
+    relaxationSampler.samples[relaxationSampler.samples.length - 1].fpaDeg = input.terminalFpaDeg;
+  }
   const terminationTasKt = termination.velocityFps / KT_TO_FPS;
   const terminationKcas = tasToCas(terminationTasKt, termination.altitudeMslFt);
 
@@ -192,5 +214,12 @@ export function calculateClimbSemV0_2(rawInput) {
     terminationSpeedKcas: terminationKcas,
     assumptions: [...ASSUMPTIONS],
     validation: { valid: true, status: "VALID_WITH_MODEL_ASSUMPTIONS", errors: [], warnings },
+    ...(relaxationSampler ? {
+      path: {
+        sampleIntervalSec,
+        samples: [...pull.path.samples, ...relaxationSampler.samples.filter((sample) => sample.elapsedTimeSec > pull.elapsedTimeSec + 1e-12)],
+        relaxationStartSec: relaxationStart.elapsedTimeSec,
+      },
+    } : {}),
   };
 }
