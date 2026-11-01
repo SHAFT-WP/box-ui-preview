@@ -254,9 +254,8 @@ function clearBoxResults() {
 
 // BOX #1 Top View / Z-Diagram: BOX-owned views over the BOX v0.2 result (common/diagram/SPEC.md F1-F4).
 function renderBoxDiagrams(result) {
-  const top = renderBoxTopView(boxTopView, result);
+  renderBoxTopView(boxTopView, result);
   renderBoxZDiagram(boxZ, result);
-  return top.geometry.validation;
 }
 
 // Roll-in Top View: the BDP-owned view draws everything inside the svg (common/diagram/SPEC.md F1-F4);
@@ -293,7 +292,9 @@ function calculateBox(plannerInput) {
     ...boxInput,
   });
   renderBoxResults(result);
-  const validation = renderBoxDiagrams(result);
+  // The route validity comes with the BOX result (BOX handoff G03); the diagrams only draw it.
+  const validation = result.geometry.validation;
+  renderBoxDiagrams(result);
   syncBoxDefaultFields(result);
   const plannerAngle = Number(plannerInput.angleOffDeg);
   const angleNote = plannerAngle === result.fixedAngleOffDeg

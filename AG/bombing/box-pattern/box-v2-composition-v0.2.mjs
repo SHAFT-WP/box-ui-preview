@@ -1,6 +1,7 @@
 import { calculateBombDeliveryV0_3Full as calculateBombDelivery } from "../bomb-delivery-planner/bomb-delivery-planner-v0.3.mjs";
 import { calculateBoxGeometryV0_2Full } from "./box-adapter-v0.2.mjs";
 import { calculateBoxOutClosureV0_1, calculateBoxOutManeuverV0_1Full } from "./box-out-maneuver-v0.1.mjs";
+import { buildBoxPatternGeometryV0_2 } from "./box-pattern-geometry-v0.2.mjs";
 import { truncateBeOutput } from "../../../common/ui/display-precision-v0.1.mjs";
 
 export const BOX_V2_COMPOSITION_MODEL_V0_2 = Object.freeze({
@@ -8,11 +9,14 @@ export const BOX_V2_COMPOSITION_MODEL_V0_2 = Object.freeze({
   // 0.2.1 (2026-09-29): Roll-in Long. D transfer (Pattern Width) and the Rev1.5 OUT (`out`).
   // 0.2.2 (2026-09-29): Crosswind Leg Extension source DEFAULT / USER with the Rev1.5 minimum
   // (`outClosure`, `crossLeg`).
-  version: "0.2.2",
+  // 0.2.3 (2026-10-23, BOX handoff G03): the result carries the whole route and its validation (`geometry`), built
+  // here at full precision, so a Result, DED or Save has the same validity without a renderer. Values unchanged.
+  version: "0.2.3",
   status: "Work / Pure Composition / Not Official",
   bombDeliverySource: "bomb-delivery-planner-v0.3-js-facade",
   geometrySource: "box-adapter-v0.2 Base Distance Abeam geometry",
   outSource: "box-out-maneuver-v0.1 (Rev1.5 OUT)",
+  routeSource: "box-pattern-geometry-v0.2 (stations, paths, Rev1.5 validation)",
   fixedAngleOffDeg: 90,
 });
 
@@ -134,7 +138,7 @@ export function calculateBoxPatternV0_2Full({
     belowMinimum: effectiveNm * 1852 + 0.5 < minimumNm * 1852,
   };
 
-  return {
+  const result = {
     model: { ...BOX_V2_COMPOSITION_MODEL_V0_2 },
     fixedAngleOffDeg: BOX_V2_COMPOSITION_MODEL_V0_2.fixedAngleOffDeg,
     bombDelivery,
@@ -144,4 +148,8 @@ export function calculateBoxPatternV0_2Full({
     outClosure,
     crossLeg,
   };
+  // The whole route and its validity (Rev1.5 checks: OUT, radii, Abeam Extension, Crosswind Leg minimum, Pattern
+  // Width, Base Leg), the one the Top View draws.
+  result.geometry = buildBoxPatternGeometryV0_2(result);
+  return result;
 }

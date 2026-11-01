@@ -42,7 +42,8 @@ export const BOX_BE_ENTRYPOINT_V0_2 = Object.freeze({
   status: "Work / Pure Calculation / Not Official",
   // 0.2.2 (2026-09-29): Rev1.5 OUT exports; the composition result carries `out`.
   // 0.2.3 (2026-09-29): OUT closure export; Crosswind Leg source DEFAULT / USER (`crossLeg`).
-  entrypointVersion: "0.2.3",
+  // 0.2.4 (2026-10-23, BOX handoff G03): the composition result carries the whole route and its validation (`geometry`).
+  entrypointVersion: "0.2.4",
   fixedAngleOffDeg: 90,
   canonicalBaseDistanceKey: "baseDistanceNm",
   canonicalAbeamDistanceKey: "abeamExtensionDistanceNm",

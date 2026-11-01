@@ -12,7 +12,6 @@ import {
 import { createSmartLabelLayout } from "../../../../common/diagram/svg-smart-label-v0.1.mjs?v=0.1.5";
 import { createSvgAutoCanvas } from "../../../../common/diagram/svg-viewport-v0.1.mjs?v=0.1.5";
 import { formatDeg, formatG, formatKt, formatNm, formatSec } from "../../../../common/ui/display-precision-v0.1.mjs";
-import { buildBoxPatternGeometryV0_2 } from "../box-pattern-geometry-v0.2.mjs";
 import { BOX_TOP_VIEW_LEGEND, BOX_VIEW_COLORS as C, boxTopViewTitle } from "./box-view-style-v0.1.mjs";
 
 // BOX #n Top View — BOX-owned view in the V2 unified view grammar (common/diagram/SPEC.md; BOX SPEC
@@ -83,7 +82,9 @@ const stationCandidates = (preferred) => {
 
 export function renderBoxTopView(svg, boxResult, options = {}) {
   if (!(svg instanceof SVGElement)) throw new TypeError("svg must be an SVGElement");
-  const geometry = buildBoxPatternGeometryV0_2(boxResult);
+  // The route and its validation come with the BOX result (BOX handoff G03, 2026-10-23); the view only draws them.
+  const geometry = boxResult?.geometry;
+  if (!geometry?.stations || !geometry?.paths || !geometry?.validation) throw new TypeError("boxResult must carry its route geometry (BOX v0.2 entrypoint 0.2.4 or later)");
   const pattern = boxResult.pattern;
   const out = boxResult.out;
   const v = geometry.values;
