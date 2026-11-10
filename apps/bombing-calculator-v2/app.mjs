@@ -100,7 +100,7 @@ const RESULT_ROWS = Object.freeze([
   ["Down Range Travel", "downRangeTravelNm", "NM", formatNm],
   ["Bomb Range", "bombRangeNm", "NM", formatNm],
   ["Bomb TOF", "bombTofSec", "s", formatSec],
-  ["Radius (EFF)", "rollInRadiusNm", "NM", formatNm],
+  ["Roll-in Radius", "rollInTurnRadiusNm", "NM", formatNm],
   ["Roll-in Time", "rollInTimeSec", "s", formatSec],
   ["Roll-in Ground Arc", "rollInGroundArcNm", "NM", formatNm],
   ["Base Distance", "baseDistanceNm", "NM", formatNm],
